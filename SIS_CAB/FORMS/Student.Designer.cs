@@ -28,8 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Student));
             lblWelcomeStudent = new Label();
             btnLogout = new Button();
+            pbStudent = new PictureBox();
+            ((System.ComponentModel.ISupportInitialize)pbStudent).BeginInit();
             SuspendLayout();
             // 
             // lblWelcomeStudent
@@ -42,6 +45,7 @@
             lblWelcomeStudent.Size = new Size(136, 18);
             lblWelcomeStudent.TabIndex = 1;
             lblWelcomeStudent.Text = "Welcome Student!";
+            lblWelcomeStudent.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // btnLogout
             // 
@@ -55,18 +59,30 @@
             btnLogout.UseVisualStyleBackColor = true;
             btnLogout.Click += btnLogout_Click;
             // 
+            // pbStudent
+            // 
+            pbStudent.Image = (Image)resources.GetObject("pbStudent.Image");
+            pbStudent.Location = new Point(-3, 12);
+            pbStudent.Name = "pbStudent";
+            pbStudent.Size = new Size(151, 69);
+            pbStudent.SizeMode = PictureBoxSizeMode.Zoom;
+            pbStudent.TabIndex = 12;
+            pbStudent.TabStop = false;
+            // 
             // Student
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Silver;
             ClientSize = new Size(800, 450);
+            Controls.Add(pbStudent);
             Controls.Add(btnLogout);
             Controls.Add(lblWelcomeStudent);
             FormBorderStyle = FormBorderStyle.Fixed3D;
             Name = "Student";
             Text = "Student";
             Load += Student_Load;
+            ((System.ComponentModel.ISupportInitialize)pbStudent).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -75,5 +91,6 @@
 
         private Label lblWelcomeStudent;
         private Button btnLogout;
+        private PictureBox pbStudent;
     }
 }

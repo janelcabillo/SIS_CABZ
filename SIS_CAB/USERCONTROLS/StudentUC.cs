@@ -51,6 +51,7 @@ namespace SIS_CAB.USERCONTROLS
             LoadStudents();
         }
 
+
         private void btnAddNew_Click(object sender, EventArgs e)
         {
             if (!panelAddStudent.Visible)

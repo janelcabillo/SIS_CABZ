@@ -40,7 +40,9 @@
             panelContainer = new Panel();
             txtSearch = new TextBox();
             pbSearch = new PictureBox();
+            pbAdmin = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)pbSearch).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pbAdmin).BeginInit();
             SuspendLayout();
             // 
             // lblWelcomeAdmin
@@ -53,6 +55,7 @@
             lblWelcomeAdmin.Size = new Size(122, 18);
             lblWelcomeAdmin.TabIndex = 0;
             lblWelcomeAdmin.Text = "Welcome Admin!";
+            lblWelcomeAdmin.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // btnDashboard
             // 
@@ -145,6 +148,8 @@
             // 
             // txtSearch
             // 
+            txtSearch.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            txtSearch.AutoCompleteSource = AutoCompleteSource.CustomSource;
             txtSearch.Location = new Point(627, 12);
             txtSearch.Name = "txtSearch";
             txtSearch.PlaceholderText = "Search:";
@@ -161,12 +166,23 @@
             pbSearch.TabIndex = 10;
             pbSearch.TabStop = false;
             // 
+            // pbAdmin
+            // 
+            pbAdmin.Image = (Image)resources.GetObject("pbAdmin.Image");
+            pbAdmin.Location = new Point(2, 12);
+            pbAdmin.Name = "pbAdmin";
+            pbAdmin.Size = new Size(151, 69);
+            pbAdmin.SizeMode = PictureBoxSizeMode.Zoom;
+            pbAdmin.TabIndex = 11;
+            pbAdmin.TabStop = false;
+            // 
             // Admin
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Silver;
             ClientSize = new Size(800, 450);
+            Controls.Add(pbAdmin);
             Controls.Add(pbSearch);
             Controls.Add(txtSearch);
             Controls.Add(panelContainer);
@@ -183,6 +199,7 @@
             Text = "Admin";
             Load += Admin_Load;
             ((System.ComponentModel.ISupportInitialize)pbSearch).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pbAdmin).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -200,5 +217,6 @@
         private Panel panelContainer;
         private TextBox txtSearch;
         private PictureBox pbSearch;
+        private PictureBox pbAdmin;
     }
 }

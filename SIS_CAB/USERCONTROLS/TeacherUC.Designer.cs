@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TeacherUC));
             dgvTeacher = new DataGridView();
             btnAddNew = new Button();
             btnUpdate = new Button();
@@ -46,14 +47,17 @@
             txtLastName = new TextBox();
             lblAddTeacher = new Label();
             txtFirstName = new TextBox();
+            txtSearch = new TextBox();
+            pbSearchTeacher = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)dgvTeacher).BeginInit();
             panelAddTeacher.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pbSearchTeacher).BeginInit();
             SuspendLayout();
             // 
             // dgvTeacher
             // 
             dgvTeacher.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvTeacher.Location = new Point(3, 3);
+            dgvTeacher.Location = new Point(3, 46);
             dgvTeacher.Name = "dgvTeacher";
             dgvTeacher.RowHeadersWidth = 51;
             dgvTeacher.Size = new Size(623, 315);
@@ -65,7 +69,7 @@
             btnAddNew.FlatStyle = FlatStyle.Popup;
             btnAddNew.Font = new Font("Arial", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnAddNew.ForeColor = Color.Black;
-            btnAddNew.Location = new Point(26, 333);
+            btnAddNew.Location = new Point(26, 376);
             btnAddNew.Name = "btnAddNew";
             btnAddNew.Size = new Size(128, 37);
             btnAddNew.TabIndex = 2;
@@ -79,7 +83,7 @@
             btnUpdate.FlatStyle = FlatStyle.Popup;
             btnUpdate.Font = new Font("Arial", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnUpdate.ForeColor = Color.Black;
-            btnUpdate.Location = new Point(253, 333);
+            btnUpdate.Location = new Point(253, 376);
             btnUpdate.Name = "btnUpdate";
             btnUpdate.Size = new Size(128, 37);
             btnUpdate.TabIndex = 3;
@@ -93,7 +97,7 @@
             btnDelete.FlatStyle = FlatStyle.Popup;
             btnDelete.Font = new Font("Arial", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnDelete.ForeColor = Color.Black;
-            btnDelete.Location = new Point(475, 333);
+            btnDelete.Location = new Point(476, 376);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(128, 37);
             btnDelete.TabIndex = 4;
@@ -118,9 +122,9 @@
             panelAddTeacher.Controls.Add(txtLastName);
             panelAddTeacher.Controls.Add(lblAddTeacher);
             panelAddTeacher.Controls.Add(txtFirstName);
-            panelAddTeacher.Location = new Point(346, 0);
+            panelAddTeacher.Location = new Point(346, 44);
             panelAddTeacher.Name = "panelAddTeacher";
-            panelAddTeacher.Size = new Size(283, 384);
+            panelAddTeacher.Size = new Size(283, 382);
             panelAddTeacher.TabIndex = 5;
             panelAddTeacher.Visible = false;
             // 
@@ -253,23 +257,46 @@
             txtFirstName.Size = new Size(238, 22);
             txtFirstName.TabIndex = 0;
             // 
+            // txtSearch
+            // 
+            txtSearch.Location = new Point(406, 11);
+            txtSearch.Name = "txtSearch";
+            txtSearch.PlaceholderText = "Search:";
+            txtSearch.Size = new Size(200, 27);
+            txtSearch.TabIndex = 6;
+            txtSearch.TextChanged += txtSearch_TextChanged;
+            // 
+            // pbSearchTeacher
+            // 
+            pbSearchTeacher.Image = (Image)resources.GetObject("pbSearchTeacher.Image");
+            pbSearchTeacher.Location = new Point(373, 11);
+            pbSearchTeacher.Name = "pbSearchTeacher";
+            pbSearchTeacher.Size = new Size(27, 27);
+            pbSearchTeacher.SizeMode = PictureBoxSizeMode.Zoom;
+            pbSearchTeacher.TabIndex = 7;
+            pbSearchTeacher.TabStop = false;
+            // 
             // TeacherUC
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Silver;
+            Controls.Add(pbSearchTeacher);
+            Controls.Add(txtSearch);
             Controls.Add(panelAddTeacher);
             Controls.Add(btnDelete);
             Controls.Add(btnUpdate);
             Controls.Add(btnAddNew);
             Controls.Add(dgvTeacher);
             Name = "TeacherUC";
-            Size = new Size(629, 384);
+            Size = new Size(629, 426);
             Load += TeacherUC_Load;
             ((System.ComponentModel.ISupportInitialize)dgvTeacher).EndInit();
             panelAddTeacher.ResumeLayout(false);
             panelAddTeacher.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pbSearchTeacher).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -292,5 +319,7 @@
         private Label lblAddTeacher;
         private TextBox txtFirstName;
         private TextBox txtSpecialization;
+        private TextBox txtSearch;
+        private PictureBox pbSearchTeacher;
     }
 }

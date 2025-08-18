@@ -18,6 +18,37 @@ namespace SIS_CAB.FORMS
         public TeacherUC()
         {
             InitializeComponent();
+            LoadTeachers();
+        }
+        private void LoadTeachers(string searchText = "")
+        {
+            using (SqlConnection conn = new SqlConnection(DatabaseConnection.connectionString))
+            {
+                string query = @"
+                    SELECT teacher_id, first_name, last_name, email, phone,
+                           hire_date, department, specialization, status
+                    FROM teacher
+                    WHERE 
+                        first_name LIKE @search OR
+                        last_name LIKE @search OR
+                        email LIKE @search OR
+                        phone LIKE @search OR
+                        CONVERT(NVARCHAR, hire_date, 23) LIKE @search OR
+                        department LIKE @search OR
+                        specialization LIKE @search OR
+                        status LIKE @search
+                ";
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@search", "%" + searchText + "%");
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+
+                    dgvTeacher.DataSource = dt; // your DataGridView
+                }
+            }
         }
         private void LoadTeachers()
         {
@@ -303,6 +334,11 @@ namespace SIS_CAB.FORMS
             {
                 MessageBox.Show("Please select a teacher to delete.", "Delete", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            LoadTeachers(txtSearch.Text.Trim());
         }
     }
 }

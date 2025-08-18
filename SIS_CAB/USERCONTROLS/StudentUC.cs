@@ -19,6 +19,39 @@ namespace SIS_CAB.USERCONTROLS
         public StudentUC()
         {
             InitializeComponent();
+            LoadStudents();
+        }
+        private void LoadStudents(string searchText = "")
+        {
+            using (SqlConnection conn = new SqlConnection(DatabaseConnection.connectionString))
+            {
+                string query = @"
+                    SELECT  student_id, first_name, last_name, date_of_birth, gender,
+                           email, phone, address, enrollment_date, status, user_id
+                    FROM student
+                    WHERE 
+                        student_id LIKE @search OR
+                        first_name LIKE @search OR
+                        last_name LIKE @search OR
+                        CONVERT(NVARCHAR, date_of_birth, 23) LIKE @search OR
+                        gender LIKE @search OR
+                        email LIKE @search OR
+                        phone LIKE @search OR
+                        address LIKE @search OR
+                        CONVERT(NVARCHAR, enrollment_date, 23) LIKE @search OR
+                        status LIKE @search
+                ";
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@search", "%" + searchText + "%");
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+
+                    dgvStudent.DataSource = dt; // your DataGridView
+                }
+            }
         }
         private void LoadStudents()
         {
@@ -50,7 +83,6 @@ namespace SIS_CAB.USERCONTROLS
         {
             LoadStudents();
         }
-
 
         private void btnAddNew_Click(object sender, EventArgs e)
         {
@@ -315,6 +347,11 @@ namespace SIS_CAB.USERCONTROLS
             {
                 MessageBox.Show("Please select a student to delete.", "Delete", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            LoadStudents(txtSearch.Text.Trim());
         }
     }
 }

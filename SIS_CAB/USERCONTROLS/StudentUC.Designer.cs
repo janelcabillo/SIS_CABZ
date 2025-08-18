@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StudentUC));
             dgvStudent = new DataGridView();
             btnAddNew = new Button();
             btnUpdate = new Button();
@@ -49,14 +50,17 @@
             txtLastName = new TextBox();
             lblAddStudent = new Label();
             txtFirstName = new TextBox();
+            txtSearch = new TextBox();
+            pbSearchStudent = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)dgvStudent).BeginInit();
             panelAddStudent.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pbSearchStudent).BeginInit();
             SuspendLayout();
             // 
             // dgvStudent
             // 
             dgvStudent.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvStudent.Location = new Point(3, 3);
+            dgvStudent.Location = new Point(3, 44);
             dgvStudent.Name = "dgvStudent";
             dgvStudent.RowHeadersWidth = 51;
             dgvStudent.Size = new Size(623, 315);
@@ -68,7 +72,7 @@
             btnAddNew.FlatStyle = FlatStyle.Popup;
             btnAddNew.Font = new Font("Arial", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnAddNew.ForeColor = Color.Black;
-            btnAddNew.Location = new Point(24, 335);
+            btnAddNew.Location = new Point(26, 376);
             btnAddNew.Name = "btnAddNew";
             btnAddNew.Size = new Size(128, 37);
             btnAddNew.TabIndex = 1;
@@ -82,7 +86,7 @@
             btnUpdate.FlatStyle = FlatStyle.Popup;
             btnUpdate.Font = new Font("Arial", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnUpdate.ForeColor = Color.Black;
-            btnUpdate.Location = new Point(256, 335);
+            btnUpdate.Location = new Point(260, 376);
             btnUpdate.Name = "btnUpdate";
             btnUpdate.Size = new Size(128, 37);
             btnUpdate.TabIndex = 2;
@@ -96,7 +100,7 @@
             btnDelete.FlatStyle = FlatStyle.Popup;
             btnDelete.Font = new Font("Arial", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnDelete.ForeColor = Color.Black;
-            btnDelete.Location = new Point(478, 335);
+            btnDelete.Location = new Point(474, 376);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(128, 37);
             btnDelete.TabIndex = 3;
@@ -124,9 +128,9 @@
             panelAddStudent.Controls.Add(txtLastName);
             panelAddStudent.Controls.Add(lblAddStudent);
             panelAddStudent.Controls.Add(txtFirstName);
-            panelAddStudent.Location = new Point(346, 0);
+            panelAddStudent.Location = new Point(346, 44);
             panelAddStudent.Name = "panelAddStudent";
-            panelAddStudent.Size = new Size(283, 384);
+            panelAddStudent.Size = new Size(283, 382);
             panelAddStudent.TabIndex = 4;
             panelAddStudent.Visible = false;
             // 
@@ -288,23 +292,46 @@
             txtFirstName.Size = new Size(238, 22);
             txtFirstName.TabIndex = 0;
             // 
+            // txtSearch
+            // 
+            txtSearch.Location = new Point(406, 11);
+            txtSearch.Name = "txtSearch";
+            txtSearch.PlaceholderText = "Search:";
+            txtSearch.Size = new Size(200, 27);
+            txtSearch.TabIndex = 5;
+            txtSearch.TextChanged += txtSearch_TextChanged;
+            // 
+            // pbSearchStudent
+            // 
+            pbSearchStudent.Image = (Image)resources.GetObject("pbSearchStudent.Image");
+            pbSearchStudent.Location = new Point(373, 11);
+            pbSearchStudent.Name = "pbSearchStudent";
+            pbSearchStudent.Size = new Size(27, 27);
+            pbSearchStudent.SizeMode = PictureBoxSizeMode.Zoom;
+            pbSearchStudent.TabIndex = 6;
+            pbSearchStudent.TabStop = false;
+            // 
             // StudentUC
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.DarkGray;
+            Controls.Add(pbSearchStudent);
+            Controls.Add(txtSearch);
             Controls.Add(panelAddStudent);
             Controls.Add(btnDelete);
             Controls.Add(btnUpdate);
             Controls.Add(btnAddNew);
             Controls.Add(dgvStudent);
             Name = "StudentUC";
-            Size = new Size(629, 384);
+            Size = new Size(629, 426);
             Load += StudentUC_Load;
             ((System.ComponentModel.ISupportInitialize)dgvStudent).EndInit();
             panelAddStudent.ResumeLayout(false);
             panelAddStudent.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pbSearchStudent).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -330,5 +357,7 @@
         private ComboBox cmbStatus;
         private Button btnCancel;
         private Button btnSave;
+        private TextBox txtSearch;
+        private PictureBox pbSearchStudent;
     }
 }

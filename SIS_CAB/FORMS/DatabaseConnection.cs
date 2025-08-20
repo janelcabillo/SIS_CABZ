@@ -8,6 +8,6 @@ namespace SIS_CAB.FORMS
 {
     internal class DatabaseConnection
     {
-        public static string connectionString = "Data Source=5lgo8sik\\SQLEXPRESS;Initial Catalog=SIS;Integrated Security=True;TrustServerCertificate=True";
+        public static string connectionString = "Data Source=LAB4-PC15\\LAB3PC31;Initial Catalog=SIS;Integrated Security=True;TrustServerCertificate=True";
     }
 }

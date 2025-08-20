@@ -57,7 +57,7 @@ namespace SIS_CAB.USERCONTROLS
         {
             using (SqlConnection conn = new SqlConnection(DatabaseConnection.connectionString))
             {
-                string query = "SELECT * From Student Order by student_id desc";
+                string query = "SELECT * From Student WHERE status = 'Active' Order by student_id desc";
 
                 SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
                 DataTable dt = new DataTable();
@@ -289,63 +289,32 @@ namespace SIS_CAB.USERCONTROLS
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            if (dgvStudent.SelectedRows.Count > 0)
+            if (dgvStudent.CurrentRow != null)
             {
-                int studentId = Convert.ToInt32(dgvStudent.SelectedRows[0].Cells["student_id"].Value);
-
-                DialogResult result = MessageBox.Show(
-                    "Are you sure you want to delete this student?",
-                    "Confirm Deletion",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Question
-                );
-
+                DialogResult result = MessageBox.Show("Are you sure you want to delete this student?", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (result == DialogResult.Yes)
                 {
-                    using (SqlConnection connection = new SqlConnection(DatabaseConnection.connectionString))
+                    string studentId = dgvStudent.CurrentRow.Cells[0].Value.ToString();
+
+                    using (SqlConnection conn = new SqlConnection(DatabaseConnection.connectionString))
                     {
-                        connection.Open();
-
-                        // Optional: If you want to also delete the related user_login record
-                        // First get the user_id of this student
-                        int userId = -1;
-                        string getUserIdQuery = "SELECT user_id FROM student WHERE student_id = @student_id";
-                        using (SqlCommand cmdUserId = new SqlCommand(getUserIdQuery, connection))
-                        {
-                            cmdUserId.Parameters.AddWithValue("@student_id", studentId);
-                            object obj = cmdUserId.ExecuteScalar();
-                            if (obj != null) userId = Convert.ToInt32(obj);
-                        }
-
-                        // Delete from student table
-                        string deleteStudentQuery = "DELETE FROM student WHERE student_id = @student_id";
-                        using (SqlCommand cmd = new SqlCommand(deleteStudentQuery, connection))
-                        {
-                            cmd.Parameters.AddWithValue("@student_id", studentId);
-                            cmd.ExecuteNonQuery();
-                        }
-
-                        // If there's a user_id linked, delete from user_login too
-                        if (userId > 0)
-                        {
-                            string deleteUserQuery = "DELETE FROM user_login WHERE user_id = @user_id";
-                            using (SqlCommand cmdUser = new SqlCommand(deleteUserQuery, connection))
-                            {
-                                cmdUser.Parameters.AddWithValue("@user_id", userId);
-                                cmdUser.ExecuteNonQuery();
-                            }
-                        }
+                        conn.Open();
+                        string deleteQuery = "UPDATE Student SET status = 'Inactive' WHERE student_id = @id";
+                        SqlCommand cmd = new SqlCommand(deleteQuery, conn);
+                        cmd.Parameters.AddWithValue("@id", studentId);
+                        cmd.ExecuteNonQuery();
                     }
 
-                    MessageBox.Show("Student deleted successfully!", "Deleted", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    // Reload students after delete
+                    //dgvStudent.Rows.RemoveAt(dgvStudent.CurrentRow.Index);
+
                     LoadStudents();
+                    MessageBox.Show("Student marked as inactive successfully.");
                 }
             }
             else
             {
-                MessageBox.Show("Please select a student to delete.", "Delete", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Please select a row to delete.");
             }
         }
 

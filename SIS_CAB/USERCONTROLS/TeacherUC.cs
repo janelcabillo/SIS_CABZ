@@ -54,7 +54,7 @@ namespace SIS_CAB.FORMS
         {
             using (SqlConnection conn = new SqlConnection(DatabaseConnection.connectionString))
             {
-                string query = "SELECT * From Teacher Order by teacher_id desc";
+                string query = "SELECT * From Teacher WHERE status = 'Active' Order by teacher_id desc";
 
                 SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
                 DataTable dt = new DataTable();
@@ -279,60 +279,32 @@ namespace SIS_CAB.FORMS
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            if (dgvTeacher.SelectedRows.Count > 0)
+            if (dgvTeacher.CurrentRow != null)
             {
-                int teacherId = Convert.ToInt32(dgvTeacher.SelectedRows[0].Cells["teacher_id"].Value);
-
-                DialogResult result = MessageBox.Show(
-                    "Are you sure you want to delete this teacher?",
-                    "Confirm Deletion",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Question
-                );
-
+                DialogResult result = MessageBox.Show("Are you sure you want to delete this teacher?", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (result == DialogResult.Yes)
                 {
-                    using (SqlConnection connection = new SqlConnection(DatabaseConnection.connectionString))
+                    string teacherId = dgvTeacher.CurrentRow.Cells[0].Value.ToString();
+
+                    using (SqlConnection conn = new SqlConnection(DatabaseConnection.connectionString))
                     {
-                        connection.Open();
-
-                        // Get linked user_id (optional step if you want to remove from user_login too)
-                        int userId = -1;
-                        string getUserIdQuery = "SELECT user_id FROM teacher WHERE teacher_id = @teacher_id";
-                        using (SqlCommand cmdUserId = new SqlCommand(getUserIdQuery, connection))
-                        {
-                            cmdUserId.Parameters.AddWithValue("@teacher_id", teacherId);
-                            object obj = cmdUserId.ExecuteScalar();
-                            if (obj != null) userId = Convert.ToInt32(obj);
-                        }
-
-                        // Delete teacher record
-                        string deleteTeacherQuery = "DELETE FROM teacher WHERE teacher_id = @teacher_id";
-                        using (SqlCommand cmd = new SqlCommand(deleteTeacherQuery, connection))
-                        {
-                            cmd.Parameters.AddWithValue("@teacher_id", teacherId);
-                            cmd.ExecuteNonQuery();
-                        }
-
-                        // If linked, delete user_login record too
-                        if (userId > 0)
-                        {
-                            string deleteUserQuery = "DELETE FROM user_login WHERE user_id = @user_id";
-                            using (SqlCommand cmdUser = new SqlCommand(deleteUserQuery, connection))
-                            {
-                                cmdUser.Parameters.AddWithValue("@user_id", userId);
-                                cmdUser.ExecuteNonQuery();
-                            }
-                        }
+                        conn.Open();
+                        string deleteQuery = "UPDATE Teacher SET status = 'Inactive' WHERE teacher_id = @id";
+                        SqlCommand cmd = new SqlCommand(deleteQuery, conn);
+                        cmd.Parameters.AddWithValue("@id", teacherId);
+                        cmd.ExecuteNonQuery();
                     }
 
-                    MessageBox.Show("Teacher deleted successfully!", "Deleted", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    //dgvTeacher.Rows.RemoveAt(dgvStudent.CurrentRow.Index);
+
                     LoadTeachers();
+                    MessageBox.Show("Teacher marked as inactive successfully.");
                 }
             }
             else
             {
-                MessageBox.Show("Please select a teacher to delete.", "Delete", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Please select a row to delete.");
             }
         }
 

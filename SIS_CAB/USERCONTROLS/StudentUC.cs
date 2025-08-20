@@ -86,6 +86,8 @@ namespace SIS_CAB.USERCONTROLS
 
         private void btnAddNew_Click(object sender, EventArgs e)
         {
+            cmbStatus.Visible = true;
+            lblStatus.Visible = true;
             if (!panelAddStudent.Visible)
             {
                 lblAddStudent.Text = "Add Student";  // 🔹 Title for Add mode
@@ -255,6 +257,9 @@ namespace SIS_CAB.USERCONTROLS
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
+            cmbStatus.Visible = false;
+            lblStatus.Visible = false;
+
             if (dgvStudent.SelectedRows.Count > 0)
             {
                 // 1. Get selected student's ID

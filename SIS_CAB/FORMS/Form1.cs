@@ -1,5 +1,6 @@
 using SIS_CAB.FORMS;
 using Microsoft.Data.SqlClient;
+using System.Data;
 
 namespace SIS_CAB
 {
@@ -15,6 +16,7 @@ namespace SIS_CAB
             string username = txtUsername.Text;
             string password = txtPassword.Text;
 
+            Logger.Log("Login", $"User {username} logged in");
             using (SqlConnection connection = new SqlConnection(DatabaseConnection.connectionString))
             {
                 try

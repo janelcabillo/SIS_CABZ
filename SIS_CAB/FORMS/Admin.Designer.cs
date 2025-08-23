@@ -111,6 +111,7 @@
             btnLogs.TabIndex = 5;
             btnLogs.Text = "Logs";
             btnLogs.UseVisualStyleBackColor = true;
+            btnLogs.Click += btnLogs_Click;
             // 
             // btnReports
             // 

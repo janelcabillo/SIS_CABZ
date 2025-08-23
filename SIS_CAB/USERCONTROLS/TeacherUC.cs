@@ -82,6 +82,8 @@ namespace SIS_CAB.FORMS
 
         private void btnAddNew_Click(object sender, EventArgs e)
         {
+            cmbStatus.Visible = true;
+            lblStatus.Visible = true;
             if (!panelAddTeacher.Visible)
             {
                 lblAddTeacher.Text = "Add Teacher";  // 🔹 Title for Add mode
@@ -247,6 +249,9 @@ namespace SIS_CAB.FORMS
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
+            cmbStatus.Visible = false;
+            lblStatus.Visible = false;
+
             if (dgvTeacher.SelectedRows.Count > 0)
             {
                 selectedTeacherId = Convert.ToInt32(dgvTeacher.SelectedRows[0].Cells["teacher_id"].Value);

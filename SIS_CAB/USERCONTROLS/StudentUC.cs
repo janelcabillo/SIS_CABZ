@@ -14,11 +14,13 @@ namespace SIS_CAB.USERCONTROLS
 {
     public partial class StudentUC : UserControl
     {
+        private string _loggedInUser;
         private bool isUpdateMode = false;
         private int selectedStudentId = -1;
-        public StudentUC()
+        public StudentUC(string username)
         {
             InitializeComponent();
+            _loggedInUser = username;
             LoadStudents();
         }
         private void LoadStudents(string searchText = "")
@@ -98,6 +100,8 @@ namespace SIS_CAB.USERCONTROLS
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            string firstName = txtFirstName.Text;
+            string lastName = txtLastName.Text;
             List<string> errors = new List<string>();
 
             if (string.IsNullOrWhiteSpace(txtFirstName.Text))
@@ -188,6 +192,8 @@ namespace SIS_CAB.USERCONTROLS
                     }
 
                     MessageBox.Show("Student updated successfully!");
+                    Logger.Log("Updated Student", $"Student {firstName} {lastName} updated by {_loggedInUser}.");
+
                 }
                 else
                 {
@@ -226,6 +232,7 @@ namespace SIS_CAB.USERCONTROLS
 
                         cmdStudent.ExecuteNonQuery();
                         MessageBox.Show("Student added successfully!", "Insert", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        Logger.Log("Added Student", $"Admin {_loggedInUser} added student {firstName} {lastName}");
                     }
                 }
 
@@ -315,6 +322,8 @@ namespace SIS_CAB.USERCONTROLS
 
                     LoadStudents();
                     MessageBox.Show("Student marked as inactive successfully.");
+                    Logger.Log("Deleted Student", $"Admin {_loggedInUser} deleted a student.");
+
                 }
             }
             else

@@ -12,22 +12,26 @@ using SIS_CAB.USERCONTROLS;
 using static System.ComponentModel.Design.ObjectSelectorEditor;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace SIS_CAB.FORMS
 {
     public partial class Admin : Form
     {
+        private string _loggedInUser;
         private string userAdmin;
 
         private StudentUC studentUC;
         private TeacherUC teacherUC;
         private DashboardUC dashboardUC;
-        public Admin(string admin)
+        private LogsUC logsUC;
+        public Admin(string username)
         {
             InitializeComponent();
-            this.userAdmin = admin;
+            _loggedInUser = username;
+            this.userAdmin = username;
 
-            StudentUC studentUC = new StudentUC();
+            StudentUC studentUC = new StudentUC(_loggedInUser);
             studentUC.Visible = false;
             this.Controls.Add(studentUC);
 
@@ -51,7 +55,7 @@ namespace SIS_CAB.FORMS
 
         private void btnStudent_Click(object sender, EventArgs e)
         {
-            StudentUC studentUC = new StudentUC();
+            StudentUC studentUC = new StudentUC(_loggedInUser);
             studentUC.Dock = DockStyle.Fill;
             studentUC.Margin = new Padding(0);
             studentUC.Padding = new Padding(0);
@@ -82,10 +86,23 @@ namespace SIS_CAB.FORMS
 
             if (result == DialogResult.Yes)
             {
+                Logger.Log("Logout", $"User {_loggedInUser} logged out");
+
                 LoginForm loginForm = new LoginForm();
                 loginForm.Show();
                 this.Close();
             }
+        }
+
+        private void btnLogs_Click(object sender, EventArgs e)
+        {
+            LogsUC logsUC = new LogsUC();
+            logsUC.Dock = DockStyle.Fill;
+            logsUC.Margin = new Padding(0);
+            logsUC.Padding = new Padding(0);
+
+            panelContainer.Controls.Clear();
+            panelContainer.Controls.Add(logsUC);
         }
     }
 }

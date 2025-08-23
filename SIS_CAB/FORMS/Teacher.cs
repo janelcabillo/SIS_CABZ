@@ -12,11 +12,13 @@ namespace SIS_CAB.FORMS
 {
     public partial class Teacher : Form
     {
+        private string _loggedInUser;
         private string userTeacher;
-        public Teacher(string teacher)
+        public Teacher(string username)
         {
             InitializeComponent();
-            this.userTeacher = teacher;
+            _loggedInUser = username;
+            this.userTeacher = username;
         }
 
         private void Teacher_Load(object sender, EventArgs e)
@@ -30,6 +32,8 @@ namespace SIS_CAB.FORMS
 
             if (result == DialogResult.Yes)
             {
+                Logger.Log("Logout", $"User {_loggedInUser} logged out");
+
                 LoginForm loginForm = new LoginForm();
                 loginForm.Show();
                 this.Close();

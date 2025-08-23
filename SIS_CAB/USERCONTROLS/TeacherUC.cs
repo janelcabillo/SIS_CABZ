@@ -13,11 +13,13 @@ namespace SIS_CAB.FORMS
 {
     public partial class TeacherUC : UserControl
     {
+        private string _loggedInUser;
         private bool isUpdateMode = false;
         private int selectedTeacherId = -1;
-        public TeacherUC()
+        public TeacherUC(string username)
         {
             InitializeComponent();
+            _loggedInUser = username;
             LoadTeachers();
         }
         private void LoadTeachers(string searchText = "")
@@ -94,6 +96,8 @@ namespace SIS_CAB.FORMS
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            string firstName = txtFirstName.Text;
+            string lastName = txtLastName.Text;
             List<string> errors = new List<string>();
 
             if (string.IsNullOrWhiteSpace(txtFirstName.Text))
@@ -182,6 +186,8 @@ namespace SIS_CAB.FORMS
                     }
 
                     MessageBox.Show("Teacher updated successfully!", "Update", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Logger.Log("Updated Teacher", $"Teacher {firstName} {lastName} updated by Admin {_loggedInUser}.");
+
                 }
                 else
                 {
@@ -219,6 +225,8 @@ namespace SIS_CAB.FORMS
 
                         cmdTeacher.ExecuteNonQuery();
                         MessageBox.Show("Teacher added successfully!", "Insert", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        Logger.Log("Added Teacher", $"Admin {_loggedInUser} added teacher {firstName} {lastName}.");
+
                     }
                 }
 
@@ -305,6 +313,8 @@ namespace SIS_CAB.FORMS
 
                     LoadTeachers();
                     MessageBox.Show("Teacher marked as inactive successfully.");
+                    Logger.Log("Deleted Teacher", $"Admin {_loggedInUser} deleted a teacher.");
+
                 }
             }
             else

@@ -192,7 +192,7 @@ namespace SIS_CAB.USERCONTROLS
                     }
 
                     MessageBox.Show("Student updated successfully!");
-                    Logger.Log("Updated Student", $"Student {firstName} {lastName} updated by {_loggedInUser}.");
+                    Logger.Log("Updated Student", $"Student {firstName} {lastName} updated by Admin {_loggedInUser}.");
 
                 }
                 else
@@ -232,7 +232,7 @@ namespace SIS_CAB.USERCONTROLS
 
                         cmdStudent.ExecuteNonQuery();
                         MessageBox.Show("Student added successfully!", "Insert", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        Logger.Log("Added Student", $"Admin {_loggedInUser} added student {firstName} {lastName}");
+                        Logger.Log("Added Student", $"Admin {_loggedInUser} added student {firstName} {lastName}.");
                     }
                 }
 

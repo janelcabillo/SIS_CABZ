@@ -35,7 +35,7 @@ namespace SIS_CAB.FORMS
             studentUC.Visible = false;
             this.Controls.Add(studentUC);
 
-            TeacherUC teacherUC = new TeacherUC();
+            TeacherUC teacherUC = new TeacherUC(_loggedInUser);
             teacherUC.Visible = false;
             this.Controls.Add(teacherUC);
         }
@@ -66,7 +66,7 @@ namespace SIS_CAB.FORMS
 
         private void btnTeacher_Click(object sender, EventArgs e)
         {
-            TeacherUC teacherUC = new TeacherUC();
+            TeacherUC teacherUC = new TeacherUC(_loggedInUser);
             teacherUC.Dock = DockStyle.Fill;
             teacherUC.Margin = new Padding(0);
             teacherUC.Padding = new Padding(0);

@@ -40,7 +40,7 @@
             dgvLogs.Location = new Point(3, 3);
             dgvLogs.Name = "dgvLogs";
             dgvLogs.RowHeadersWidth = 51;
-            dgvLogs.Size = new Size(623, 420);
+            dgvLogs.Size = new Size(722, 472);
             dgvLogs.TabIndex = 0;
             // 
             // LogsUC
@@ -50,7 +50,7 @@
             BackColor = Color.Silver;
             Controls.Add(dgvLogs);
             Name = "LogsUC";
-            Size = new Size(629, 426);
+            Size = new Size(728, 478);
             Load += LogsUC_Load;
             ((System.ComponentModel.ISupportInitialize)dgvLogs).EndInit();
             ResumeLayout(false);

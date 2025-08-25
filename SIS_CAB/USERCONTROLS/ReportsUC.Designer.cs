@@ -34,8 +34,9 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.Silver;
             Name = "ReportsUC";
-            Size = new Size(629, 426);
+            Size = new Size(728, 478);
             ResumeLayout(false);
         }
 

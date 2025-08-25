@@ -48,7 +48,7 @@
             series1.Legend = "Legend1";
             series1.Name = "Series1";
             chartDashboard.Series.Add(series1);
-            chartDashboard.Size = new Size(591, 347);
+            chartDashboard.Size = new Size(694, 445);
             chartDashboard.TabIndex = 0;
             chartDashboard.Text = "chart1";
             chartDashboard.Click += chartDashboard_Click;
@@ -60,7 +60,7 @@
             BackColor = Color.DarkGray;
             Controls.Add(chartDashboard);
             Name = "DashboardUC";
-            Size = new Size(629, 384);
+            Size = new Size(728, 478);
             ((System.ComponentModel.ISupportInitialize)chartDashboard).EndInit();
             ResumeLayout(false);
         }

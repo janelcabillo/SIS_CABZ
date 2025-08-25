@@ -38,8 +38,8 @@
             btnReports = new Button();
             btnLogout = new Button();
             panelContainer = new Panel();
-            pbAdmin = new PictureBox();
-            ((System.ComponentModel.ISupportInitialize)pbAdmin).BeginInit();
+            pbPPAdmin = new PictureBox();
+            ((System.ComponentModel.ISupportInitialize)pbPPAdmin).BeginInit();
             SuspendLayout();
             // 
             // lblWelcomeAdmin
@@ -47,7 +47,7 @@
             lblWelcomeAdmin.AutoSize = true;
             lblWelcomeAdmin.BackColor = Color.Transparent;
             lblWelcomeAdmin.Font = new Font("Arial", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblWelcomeAdmin.Location = new Point(22, 84);
+            lblWelcomeAdmin.Location = new Point(30, 91);
             lblWelcomeAdmin.Name = "lblWelcomeAdmin";
             lblWelcomeAdmin.Size = new Size(122, 18);
             lblWelcomeAdmin.TabIndex = 0;
@@ -58,9 +58,9 @@
             // 
             btnDashboard.FlatStyle = FlatStyle.Flat;
             btnDashboard.Font = new Font("Arial", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnDashboard.Location = new Point(12, 117);
+            btnDashboard.Location = new Point(12, 123);
             btnDashboard.Name = "btnDashboard";
-            btnDashboard.Size = new Size(141, 32);
+            btnDashboard.Size = new Size(158, 41);
             btnDashboard.TabIndex = 1;
             btnDashboard.Text = "Dashboard";
             btnDashboard.UseVisualStyleBackColor = true;
@@ -70,9 +70,9 @@
             // 
             btnStudent.FlatStyle = FlatStyle.Flat;
             btnStudent.Font = new Font("Arial", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnStudent.Location = new Point(12, 188);
+            btnStudent.Location = new Point(12, 185);
             btnStudent.Name = "btnStudent";
-            btnStudent.Size = new Size(141, 32);
+            btnStudent.Size = new Size(158, 41);
             btnStudent.TabIndex = 2;
             btnStudent.Text = "Student";
             btnStudent.UseVisualStyleBackColor = true;
@@ -82,9 +82,9 @@
             // 
             btnTeacher.FlatStyle = FlatStyle.Flat;
             btnTeacher.Font = new Font("Arial", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnTeacher.Location = new Point(12, 226);
+            btnTeacher.Location = new Point(12, 232);
             btnTeacher.Name = "btnTeacher";
-            btnTeacher.Size = new Size(141, 32);
+            btnTeacher.Size = new Size(158, 41);
             btnTeacher.TabIndex = 3;
             btnTeacher.Text = "Teacher";
             btnTeacher.UseVisualStyleBackColor = true;
@@ -94,9 +94,9 @@
             // 
             btnSubject.FlatStyle = FlatStyle.Flat;
             btnSubject.Font = new Font("Arial", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnSubject.Location = new Point(12, 264);
+            btnSubject.Location = new Point(12, 279);
             btnSubject.Name = "btnSubject";
-            btnSubject.Size = new Size(141, 31);
+            btnSubject.Size = new Size(158, 41);
             btnSubject.TabIndex = 4;
             btnSubject.Text = "Subject";
             btnSubject.UseVisualStyleBackColor = true;
@@ -105,9 +105,9 @@
             // 
             btnLogs.FlatStyle = FlatStyle.Flat;
             btnLogs.Font = new Font("Arial", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnLogs.Location = new Point(12, 301);
+            btnLogs.Location = new Point(12, 326);
             btnLogs.Name = "btnLogs";
-            btnLogs.Size = new Size(141, 31);
+            btnLogs.Size = new Size(158, 41);
             btnLogs.TabIndex = 5;
             btnLogs.Text = "Logs";
             btnLogs.UseVisualStyleBackColor = true;
@@ -117,9 +117,9 @@
             // 
             btnReports.FlatStyle = FlatStyle.Flat;
             btnReports.Font = new Font("Arial", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnReports.Location = new Point(12, 338);
+            btnReports.Location = new Point(12, 373);
             btnReports.Name = "btnReports";
-            btnReports.Size = new Size(141, 32);
+            btnReports.Size = new Size(158, 41);
             btnReports.TabIndex = 6;
             btnReports.Text = "Reports";
             btnReports.UseVisualStyleBackColor = true;
@@ -128,9 +128,9 @@
             // 
             btnLogout.FlatStyle = FlatStyle.Flat;
             btnLogout.Font = new Font("Arial", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnLogout.Location = new Point(12, 406);
+            btnLogout.Location = new Point(12, 449);
             btnLogout.Name = "btnLogout";
-            btnLogout.Size = new Size(141, 32);
+            btnLogout.Size = new Size(158, 41);
             btnLogout.TabIndex = 7;
             btnLogout.Text = "Logout";
             btnLogout.UseVisualStyleBackColor = true;
@@ -139,28 +139,28 @@
             // panelContainer
             // 
             panelContainer.BorderStyle = BorderStyle.Fixed3D;
-            panelContainer.Location = new Point(159, 12);
+            panelContainer.Location = new Point(189, 12);
             panelContainer.Name = "panelContainer";
-            panelContainer.Size = new Size(629, 426);
+            panelContainer.Size = new Size(728, 478);
             panelContainer.TabIndex = 8;
             // 
-            // pbAdmin
+            // pbPPAdmin
             // 
-            pbAdmin.Image = (Image)resources.GetObject("pbAdmin.Image");
-            pbAdmin.Location = new Point(2, 12);
-            pbAdmin.Name = "pbAdmin";
-            pbAdmin.Size = new Size(151, 69);
-            pbAdmin.SizeMode = PictureBoxSizeMode.Zoom;
-            pbAdmin.TabIndex = 11;
-            pbAdmin.TabStop = false;
+            pbPPAdmin.Image = (Image)resources.GetObject("pbPPAdmin.Image");
+            pbPPAdmin.Location = new Point(49, 12);
+            pbPPAdmin.Name = "pbPPAdmin";
+            pbPPAdmin.Size = new Size(81, 65);
+            pbPPAdmin.SizeMode = PictureBoxSizeMode.Zoom;
+            pbPPAdmin.TabIndex = 9;
+            pbPPAdmin.TabStop = false;
             // 
             // Admin
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Silver;
-            ClientSize = new Size(800, 450);
-            Controls.Add(pbAdmin);
+            ClientSize = new Size(929, 502);
+            Controls.Add(pbPPAdmin);
             Controls.Add(panelContainer);
             Controls.Add(btnLogout);
             Controls.Add(btnReports);
@@ -174,7 +174,7 @@
             Name = "Admin";
             Text = "Admin";
             Load += Admin_Load;
-            ((System.ComponentModel.ISupportInitialize)pbAdmin).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pbPPAdmin).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -190,6 +190,6 @@
         private Button btnReports;
         private Button btnLogout;
         private Panel panelContainer;
-        private PictureBox pbAdmin;
+        private PictureBox pbPPAdmin;
     }
 }

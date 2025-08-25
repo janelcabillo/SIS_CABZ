@@ -31,8 +31,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Teacher));
             lblWelcomeTeacher = new Label();
             btnLogout = new Button();
-            pbTeacher = new PictureBox();
-            ((System.ComponentModel.ISupportInitialize)pbTeacher).BeginInit();
+            pbPPStudent = new PictureBox();
+            ((System.ComponentModel.ISupportInitialize)pbPPStudent).BeginInit();
             SuspendLayout();
             // 
             // lblWelcomeTeacher
@@ -40,7 +40,7 @@
             lblWelcomeTeacher.AutoSize = true;
             lblWelcomeTeacher.BackColor = Color.Transparent;
             lblWelcomeTeacher.Font = new Font("Arial", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblWelcomeTeacher.Location = new Point(12, 88);
+            lblWelcomeTeacher.Location = new Point(30, 91);
             lblWelcomeTeacher.Name = "lblWelcomeTeacher";
             lblWelcomeTeacher.Size = new Size(138, 18);
             lblWelcomeTeacher.TabIndex = 2;
@@ -50,38 +50,38 @@
             // 
             btnLogout.FlatStyle = FlatStyle.Flat;
             btnLogout.Font = new Font("Arial", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnLogout.Location = new Point(12, 406);
+            btnLogout.Location = new Point(12, 449);
             btnLogout.Name = "btnLogout";
-            btnLogout.Size = new Size(141, 32);
+            btnLogout.Size = new Size(158, 41);
             btnLogout.TabIndex = 9;
             btnLogout.Text = "Logout";
             btnLogout.UseVisualStyleBackColor = true;
             btnLogout.Click += btnLogout_Click;
             // 
-            // pbTeacher
+            // pbPPStudent
             // 
-            pbTeacher.Image = (Image)resources.GetObject("pbTeacher.Image");
-            pbTeacher.Location = new Point(-1, 12);
-            pbTeacher.Name = "pbTeacher";
-            pbTeacher.Size = new Size(151, 69);
-            pbTeacher.SizeMode = PictureBoxSizeMode.Zoom;
-            pbTeacher.TabIndex = 12;
-            pbTeacher.TabStop = false;
+            pbPPStudent.Image = (Image)resources.GetObject("pbPPStudent.Image");
+            pbPPStudent.Location = new Point(49, 12);
+            pbPPStudent.Name = "pbPPStudent";
+            pbPPStudent.Size = new Size(81, 65);
+            pbPPStudent.SizeMode = PictureBoxSizeMode.Zoom;
+            pbPPStudent.TabIndex = 11;
+            pbPPStudent.TabStop = false;
             // 
             // Teacher
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Silver;
-            ClientSize = new Size(800, 450);
-            Controls.Add(pbTeacher);
+            ClientSize = new Size(929, 502);
+            Controls.Add(pbPPStudent);
             Controls.Add(btnLogout);
             Controls.Add(lblWelcomeTeacher);
             FormBorderStyle = FormBorderStyle.Fixed3D;
             Name = "Teacher";
             Text = "Teacher";
             Load += Teacher_Load;
-            ((System.ComponentModel.ISupportInitialize)pbTeacher).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pbPPStudent).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -90,6 +90,6 @@
 
         private Label lblWelcomeTeacher;
         private Button btnLogout;
-        private PictureBox pbTeacher;
+        private PictureBox pbPPStudent;
     }
 }

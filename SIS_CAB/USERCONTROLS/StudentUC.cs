@@ -303,11 +303,18 @@ namespace SIS_CAB.USERCONTROLS
         {
             if (dgvStudent.CurrentRow != null)
             {
-                DialogResult result = MessageBox.Show("Are you sure you want to delete this student?", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                string firstName = dgvStudent.CurrentRow.Cells[1].Value.ToString();
+                string lastName = dgvStudent.CurrentRow.Cells[2].Value.ToString();
+                string studentId = dgvStudent.CurrentRow.Cells[0].Value.ToString();
+
+                DialogResult result = MessageBox.Show(
+                    $"Are you sure you want to delete student {firstName} {lastName}?",
+                    "Confirm Delete",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Warning);
+
                 if (result == DialogResult.Yes)
                 {
-                    string studentId = dgvStudent.CurrentRow.Cells[0].Value.ToString();
-
                     using (SqlConnection conn = new SqlConnection(DatabaseConnection.connectionString))
                     {
                         conn.Open();
@@ -317,13 +324,9 @@ namespace SIS_CAB.USERCONTROLS
                         cmd.ExecuteNonQuery();
                     }
 
-
-                    //dgvStudent.Rows.RemoveAt(dgvStudent.CurrentRow.Index);
-
                     LoadStudents();
-                    MessageBox.Show("Student marked as inactive successfully.");
-                    Logger.Log("Deleted Student", $"Admin {_loggedInUser} deleted a student.");
-
+                    MessageBox.Show($"Student {firstName} {lastName} marked as inactive successfully.");
+                    Logger.Log("Deleted Student", $"Admin {_loggedInUser} deleted student {firstName} {lastName}.");
                 }
             }
             else

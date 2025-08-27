@@ -294,11 +294,19 @@ namespace SIS_CAB.FORMS
         {
             if (dgvTeacher.CurrentRow != null)
             {
-                DialogResult result = MessageBox.Show("Are you sure you want to delete this teacher?", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                // Get first and last name from the selected row
+                string firstName = dgvTeacher.CurrentRow.Cells[1].Value.ToString();
+                string lastName = dgvTeacher.CurrentRow.Cells[2].Value.ToString();
+                string teacherId = dgvTeacher.CurrentRow.Cells[0].Value.ToString();
+
+                DialogResult result = MessageBox.Show(
+                    $"Are you sure you want to delete teacher {firstName} {lastName}?",
+                    "Confirm Delete",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Warning);
+
                 if (result == DialogResult.Yes)
                 {
-                    string teacherId = dgvTeacher.CurrentRow.Cells[0].Value.ToString();
-
                     using (SqlConnection conn = new SqlConnection(DatabaseConnection.connectionString))
                     {
                         conn.Open();
@@ -308,13 +316,9 @@ namespace SIS_CAB.FORMS
                         cmd.ExecuteNonQuery();
                     }
 
-
-                    //dgvTeacher.Rows.RemoveAt(dgvStudent.CurrentRow.Index);
-
                     LoadTeachers();
-                    MessageBox.Show("Teacher marked as inactive successfully.");
-                    Logger.Log("Deleted Teacher", $"Admin {_loggedInUser} deleted a teacher.");
-
+                    MessageBox.Show($"Teacher {firstName} {lastName} marked as inactive successfully.");
+                    Logger.Log("Deleted Teacher", $"Admin {_loggedInUser} deleted teacher {firstName} {lastName}.");
                 }
             }
             else

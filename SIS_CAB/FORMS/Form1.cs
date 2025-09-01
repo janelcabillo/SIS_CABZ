@@ -6,6 +6,9 @@ namespace SIS_CAB
 {
     public partial class LoginForm : Form
     {
+        private ForgotPasswordUC forgotpassUC;
+        private VerificationCodeUC verificationCodeUC;
+        private ResetPasswordUC resetpassUC;
         public LoginForm()
         {
             InitializeComponent();
@@ -121,6 +124,32 @@ namespace SIS_CAB
                     MessageBox.Show(ex.Message);
                 }
             }
+        }
+
+        private void linklblForgotPass_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            panelWelcome.Visible = false;
+
+            // Show forgot password control inside the panel
+            forgotpassUC.Visible = true;
+            forgotpassUC.BringToFront();
+        }
+
+        private void LoginForm_Load(object sender, EventArgs e)
+        {
+            forgotpassUC = new ForgotPasswordUC();
+            this.Controls.Add(forgotpassUC);
+            forgotpassUC.Visible = false;
+            forgotpassUC.Location = new System.Drawing.Point(287, 54);
+
+            // Subscribe to cancel event
+            forgotpassUC.CancelClicked += ForgotpassUC_CancelClicked;
+        }
+
+        private void ForgotpassUC_CancelClicked(object? sender, EventArgs e)
+        {
+            forgotpassUC.Visible = false;
+            panelWelcome.Visible = true;
         }
     }
 }

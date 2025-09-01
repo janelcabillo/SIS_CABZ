@@ -142,14 +142,9 @@ namespace SIS_CAB
             forgotpassUC.Visible = false;
             forgotpassUC.Location = new System.Drawing.Point(287, 54);
 
-            // Subscribe to cancel event
-            forgotpassUC.CancelClicked += ForgotpassUC_CancelClicked;
+
         }
 
-        private void ForgotpassUC_CancelClicked(object? sender, EventArgs e)
-        {
-            forgotpassUC.Visible = false;
-            panelWelcome.Visible = true;
-        }
+      
     }
 }

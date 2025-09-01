@@ -19,185 +19,147 @@ namespace SIS_CAB.FORMS
 {
     public partial class ForgotPasswordUC : UserControl
     {
-        public event EventHandler CancelClicked;
-
-        private const string SmtpHost = "smtp.gmail.com";
-        private const int SmtpPort = 587;
-        private const string SmtpUser = "nellypial.ccsdump@gmail.com";      // <- replace with your Gmail
-        private const string SmtpAppPassword = "dakj pxzv kezy jhqh";
-        private byte[] email;
+        public string otpcode;
 
         public ForgotPasswordUC()
         {
             InitializeComponent();
+
+
+
+        }
+        private void SendEmail(string toEmail, string subject, string body)
+        {
+            try
+            {
+                var message = new MimeMessage();
+                message.From.Add(new MailboxAddress("SIS", "ccs.renno04@gmail.com"));
+                message.To.Add(new MailboxAddress("", toEmail));
+                message.Subject = subject;
+                message.Body = new TextPart("plain") { Text = body };
+
+                using (var client = new SmtpClient())
+                {
+                    client.Connect("smtp.gmail.com", 587, SecureSocketOptions.StartTls);
+                    client.Authenticate("nellypial.ccsdump@gmail.com", "wyyj vpbh txnl yeun");
+                    client.Send(message);
+                    client.Disconnect(true);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error sending email: " + ex.Message);
+            }
         }
 
         private void btnSendCode_Click(object sender, EventArgs e)
         {
-            string emailInput = txtEmail.Text.Trim();
+            string email = txtEmail.Text.Trim();
 
-            if (string.IsNullOrEmpty(emailInput))
+            using (SqlConnection con = new SqlConnection(DatabaseConnection.connectionString))
             {
-                MessageBox.Show("⚠ Please enter your registered email or username.");
-                return;
-            }
+                con.Open();
+                string query = @"SELECT email FROM student WHERE email=@em
+                                 UNION 
+                                 SELECT email FROM teacher WHERE email=@em";
 
-            try
-            {
-                int userId = FindUserIdByEmailOrUsername(emailInput, out string resolvedEmail);
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@em", email);
+                var result = cmd.ExecuteScalar();
 
-                if (userId == -1 || string.IsNullOrEmpty(resolvedEmail))
+                if (result != null)
                 {
-                    MessageBox.Show("⚠ Email or username not found.");
-                    return;
-                }
+                    Random random = new Random();
+                    otpcode = random.Next(100000, 999999).ToString();
 
-                // generate 6-digit code
-                var rnd = new Random();
-                string code = rnd.Next(100000, 999999).ToString();
-
-                // expiry in 1 minutes 
-                DateTime expiry = DateTime.Now.AddMinutes(1);
-
-                // save to DB
-                SaveVerificationCode(userId, code, expiry);
-
-                // send email
-                if (SendVerificationEmail(resolvedEmail, code, out string sendError))
-                {
-                    MessageBox.Show("✅ Verification code sent. Please check your email.");
-
-                    var verifyUC = new VerificationCodeUC(userId, resolvedEmail);
-                    verifyUC.Dock = DockStyle.Fill;
-                    this.Parent?.Controls.Add(verifyUC);
-                    verifyUC.BringToFront();
-
-                    this.Parent?.Controls.Remove(this);
-                    this.Dispose();
+                    SendEmail(email, "Your OTP Code", $"Your OTP code is {otpcode}");
+                    MessageBox.Show("OTP sent to your email!");
                 }
                 else
                 {
-                    MessageBox.Show("⚠ Failed to send email:\n" + sendError);
+                    MessageBox.Show("Email not found!");
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error: " + ex.Message + "\nStack: " + ex.StackTrace);
             }
         }
 
-        private int FindUserIdByEmailOrUsername(string emailInput, out string resolvedEmail)
+        private void btnverify_Click(object sender, EventArgs e)
         {
-            resolvedEmail = null;
-
-            try
+            if (txtverify.Text == otpcode)
             {
-                using (var con = new SqlConnection(DatabaseConnection.connectionString))
-                {
-                    con.Open();
-                    using (var cmd = new SqlCommand(@"
-                        SELECT u.user_id,
-                               CASE 
-                                   WHEN s.email IS NOT NULL THEN s.email
-                                   WHEN t.email IS NOT NULL THEN t.email
-                                   WHEN a.email IS NOT NULL THEN a.email
-                       END AS email
-                        FROM user_login u
-                        LEFT JOIN student s ON u.user_id = s.user_id
-                        LEFT JOIN teacher t ON u.user_id = t.user_id
-                        LEFT JOIN Admin a   ON u.user_id = a.user_id
-                        WHERE u.username = @input
-                           OR (s.email IS NOT NULL AND s.email = @input)
-                           OR (t.email IS NOT NULL AND t.email = @input)
-                           OR (a.email IS NOT NULL AND a.email = @input)", con))
-                    {
-                        cmd.Parameters.AddWithValue("@input", emailInput);
+                MessageBox.Show("OTP Verified! Please Enter New Password");
+                pnl_password.Visible = true;
 
-                        using (var r = cmd.ExecuteReader())
-                        {
-                            if (r.Read())
-                            {
-                                resolvedEmail = r["email"] as string;
-                                return Convert.ToInt32(r["user_id"]);
-                            }
-                        }
-                    }
-                }
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show("DB lookup error: " + ex.Message);
+                MessageBox.Show("Invalid OTP");
             }
 
-            return -1;
-        }
-
-        private bool SendVerificationEmail(string resolvedEmail, string code, out string sendError)
-        {
-            sendError = null;
-
-            try
-            {
-                var message = new MimeMessage();
-                message.From.Add(new MailboxAddress("SIS Support", SmtpUser));
-                message.To.Add(MailboxAddress.Parse(email));
-                message.Subject = "Password Reset Verification Code";
-
-                message.Body = new TextPart("plain")
-                {
-                    Text = $"Hello,\n\nYour verification code is: {code}\n\nThis code is valid for 5 minutes.\n\n- SIS Team"
-                };
-
-                using (var client = new SmtpClient())
-                {
-                    client.ServerCertificateValidationCallback = (s, c, h, e) => true;
-                    client.Connect(SmtpHost, SmtpPort, SecureSocketOptions.StartTls);
-                    client.Authenticate(SmtpUser, SmtpAppPassword);
-                    client.Send(message);
-                    client.Disconnect(true);
-                }
-
-                return true;
-            }
-            catch (Exception ex)
-            {
-                sendError = ex.Message + "\n\nTips:\n" +
-                            "- Make sure 2FA is ON for Gmail\n" +
-                            "- Use a Gmail App Password (not your Gmail password)\n" +
-                            "- Check if antivirus/firewall is blocking port 587";
-                return false;
-            }
-        }
-
-        private void SaveVerificationCode(int userId, string code, DateTime expiry)
-        {
-            try
-            {
-                using (var con = new SqlConnection(DatabaseConnection.connectionString))
-                {
-                    con.Open();
-                    using (var cmd = new SqlCommand(@"
-                                                    UPDATE user_login
-                                                    SET verification_code = @code,
-                                                    verification_expiry = @expiry
-                                                    WHERE user_id = @uid", con))
-                    {
-                        cmd.Parameters.AddWithValue("@code", code);
-                        cmd.Parameters.AddWithValue("@expiry", expiry);
-                        cmd.Parameters.AddWithValue("@uid", userId);
-                        cmd.ExecuteNonQuery();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Failed to save verification code: " + ex.Message);
-            }
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            CancelClicked?.Invoke(this, EventArgs.Empty);
+            LoginForm login = new LoginForm();
+            login.Show();
+        }
+
+        private void btnSubmit_Click(object sender, EventArgs e)
+        {
+            if (txtnew.Text != txtconfirm.Text)
+            {
+                MessageBox.Show("Passwords do not match!");
+                return;
+            }
+
+            string newpass = txtnew.Text;
+            string email = txtEmail.Text;
+
+            using (SqlConnection con = new SqlConnection(DatabaseConnection.connectionString))
+            {
+                con.Open();
+
+
+                string getUserQuery = @"
+                    SELECT s.first_name 
+                    FROM student s
+                    WHERE s.email = @em
+                    UNION
+                    SELECT t.first_name 
+                    FROM teacher t
+                    WHERE t.email = @em";
+
+                SqlCommand cmdGet = new SqlCommand(getUserQuery, con);
+                cmdGet.Parameters.AddWithValue("@em", email);
+                var usernameObj = cmdGet.ExecuteScalar();
+
+                if (usernameObj != null)
+                {
+                    string username = usernameObj.ToString();
+
+
+                    string updateQuery = "UPDATE User_Login SET password_hash = @pas WHERE username = @uname";
+                    SqlCommand cmdUpdate = new SqlCommand(updateQuery, con);
+                    cmdUpdate.Parameters.AddWithValue("@pas", newpass);
+                    cmdUpdate.Parameters.AddWithValue("@uname", username);
+
+                    int rows = cmdUpdate.ExecuteNonQuery();
+
+                    if (rows > 0)
+                    {
+                        MessageBox.Show("Password Updated Successfully!");
+                        LoginForm form1 = new LoginForm();
+                        form1.Show();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Failed to update password in User_Login!");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No matching user found for this email!");
+                }
+            }
         }
     }
 }

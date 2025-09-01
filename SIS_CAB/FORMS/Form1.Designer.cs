@@ -50,7 +50,7 @@
             panelWelcome.Location = new Point(239, 41);
             panelWelcome.Margin = new Padding(3, 2, 3, 2);
             panelWelcome.Name = "panelWelcome";
-            panelWelcome.Size = new Size(346, 296);
+            panelWelcome.Size = new Size(346, 344);
             panelWelcome.TabIndex = 1;
             // 
             // linklblForgotPass

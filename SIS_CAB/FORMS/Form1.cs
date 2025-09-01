@@ -7,8 +7,6 @@ namespace SIS_CAB
     public partial class LoginForm : Form
     {
         private ForgotPasswordUC forgotpassUC;
-        private VerificationCodeUC verificationCodeUC;
-        private ResetPasswordUC resetpassUC;
         public LoginForm()
         {
             InitializeComponent();
@@ -60,6 +58,8 @@ namespace SIS_CAB
                             SqlCommand resetCmd = new SqlCommand(resetQuery, connection);
                             resetCmd.Parameters.AddWithValue("@id", userId);
                             resetCmd.ExecuteNonQuery();
+
+                            Logger.Log("Login", $"User '{username}' logged in successfully.");
 
                             // Redirect based on role
                             switch (roleID)
@@ -128,9 +128,11 @@ namespace SIS_CAB
 
         private void linklblForgotPass_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            panelWelcome.Visible = false;
+            foreach (Control c in panelWelcome.Controls)
+            {
+                if (c != forgotpassUC) c.Visible = false; // hide other controls
+            }
 
-            // Show forgot password control inside the panel
             forgotpassUC.Visible = true;
             forgotpassUC.BringToFront();
         }
@@ -138,11 +140,9 @@ namespace SIS_CAB
         private void LoginForm_Load(object sender, EventArgs e)
         {
             forgotpassUC = new ForgotPasswordUC();
-            this.Controls.Add(forgotpassUC);
+            panelWelcome.Controls.Add(forgotpassUC); // Add inside the panel, not the form
+            forgotpassUC.Dock = DockStyle.Fill;      // Fill the panel completely
             forgotpassUC.Visible = false;
-            forgotpassUC.Location = new System.Drawing.Point(287, 54);
-
-
         }
 
       

@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            lblEnterEmail = new Label();
+            lblForgotPass = new Label();
             txtEmail = new TextBox();
             btnSendCode = new Button();
             btnCancel = new Button();
@@ -42,34 +42,36 @@
             pnl_password.SuspendLayout();
             SuspendLayout();
             // 
-            // lblEnterEmail
+            // lblForgotPass
             // 
-            lblEnterEmail.AutoSize = true;
-            lblEnterEmail.Font = new Font("Arial Black", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblEnterEmail.ForeColor = Color.Black;
-            lblEnterEmail.Location = new Point(85, 37);
-            lblEnterEmail.Name = "lblEnterEmail";
-            lblEnterEmail.Size = new Size(167, 33);
-            lblEnterEmail.TabIndex = 1;
-            lblEnterEmail.Text = "Enter Email";
+            lblForgotPass.AutoSize = true;
+            lblForgotPass.Font = new Font("Arial Black", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblForgotPass.ForeColor = Color.Black;
+            lblForgotPass.Location = new Point(77, 39);
+            lblForgotPass.Name = "lblForgotPass";
+            lblForgotPass.Size = new Size(238, 32);
+            lblForgotPass.TabIndex = 1;
+            lblForgotPass.Text = "Forgot Password?";
             // 
             // txtEmail
             // 
-            txtEmail.Font = new Font("Arial", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtEmail.Location = new Point(49, 82);
+            txtEmail.Font = new Font("Arial", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtEmail.Location = new Point(42, 98);
+            txtEmail.Margin = new Padding(3, 4, 3, 4);
             txtEmail.Name = "txtEmail";
             txtEmail.PlaceholderText = "Email:";
-            txtEmail.Size = new Size(246, 29);
+            txtEmail.Size = new Size(309, 28);
             txtEmail.TabIndex = 2;
             // 
             // btnSendCode
             // 
             btnSendCode.BackColor = Color.RoyalBlue;
             btnSendCode.FlatStyle = FlatStyle.Popup;
-            btnSendCode.Font = new Font("Arial", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnSendCode.Location = new Point(49, 117);
+            btnSendCode.Font = new Font("Arial", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnSendCode.Location = new Point(42, 134);
+            btnSendCode.Margin = new Padding(3, 4, 3, 4);
             btnSendCode.Name = "btnSendCode";
-            btnSendCode.Size = new Size(246, 40);
+            btnSendCode.Size = new Size(309, 40);
             btnSendCode.TabIndex = 3;
             btnSendCode.Text = "Send Code";
             btnSendCode.UseVisualStyleBackColor = false;
@@ -80,9 +82,10 @@
             btnCancel.BackColor = Color.Gray;
             btnCancel.FlatStyle = FlatStyle.Popup;
             btnCancel.Font = new Font("Arial", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnCancel.Location = new Point(49, 263);
+            btnCancel.Location = new Point(42, 304);
+            btnCancel.Margin = new Padding(3, 4, 3, 4);
             btnCancel.Name = "btnCancel";
-            btnCancel.Size = new Size(246, 40);
+            btnCancel.Size = new Size(309, 40);
             btnCancel.TabIndex = 4;
             btnCancel.Text = "Cancel";
             btnCancel.UseVisualStyleBackColor = false;
@@ -93,9 +96,10 @@
             btnverify.BackColor = Color.RoyalBlue;
             btnverify.FlatStyle = FlatStyle.Popup;
             btnverify.Font = new Font("Arial", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnverify.Location = new Point(49, 202);
+            btnverify.Location = new Point(42, 238);
+            btnverify.Margin = new Padding(3, 4, 3, 4);
             btnverify.Name = "btnverify";
-            btnverify.Size = new Size(246, 40);
+            btnverify.Size = new Size(309, 40);
             btnverify.TabIndex = 6;
             btnverify.Text = "Verify";
             btnverify.UseVisualStyleBackColor = false;
@@ -103,11 +107,12 @@
             // 
             // txtverify
             // 
-            txtverify.Font = new Font("Arial", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtverify.Location = new Point(49, 167);
+            txtverify.Font = new Font("Arial", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtverify.Location = new Point(42, 202);
+            txtverify.Margin = new Padding(3, 4, 3, 4);
             txtverify.Name = "txtverify";
-            txtverify.PlaceholderText = "Verify";
-            txtverify.Size = new Size(246, 29);
+            txtverify.PlaceholderText = "xxxxxx";
+            txtverify.Size = new Size(309, 28);
             txtverify.TabIndex = 5;
             // 
             // pnl_password
@@ -116,9 +121,10 @@
             pnl_password.Controls.Add(txtconfirm);
             pnl_password.Controls.Add(txtnew);
             pnl_password.Controls.Add(label1);
-            pnl_password.Location = new Point(40, 13);
+            pnl_password.Location = new Point(0, 0);
+            pnl_password.Margin = new Padding(3, 4, 3, 4);
             pnl_password.Name = "pnl_password";
-            pnl_password.Size = new Size(255, 344);
+            pnl_password.Size = new Size(395, 528);
             pnl_password.TabIndex = 7;
             pnl_password.Visible = false;
             // 
@@ -126,10 +132,11 @@
             // 
             btnSubmit.BackColor = Color.RoyalBlue;
             btnSubmit.FlatStyle = FlatStyle.Popup;
-            btnSubmit.Font = new Font("Arial", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnSubmit.Location = new Point(3, 172);
+            btnSubmit.Font = new Font("Arial", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnSubmit.Location = new Point(42, 270);
+            btnSubmit.Margin = new Padding(3, 4, 3, 4);
             btnSubmit.Name = "btnSubmit";
-            btnSubmit.Size = new Size(246, 40);
+            btnSubmit.Size = new Size(309, 45);
             btnSubmit.TabIndex = 11;
             btnSubmit.Text = "Verify";
             btnSubmit.UseVisualStyleBackColor = false;
@@ -137,36 +144,40 @@
             // 
             // txtconfirm
             // 
-            txtconfirm.Font = new Font("Arial", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtconfirm.Location = new Point(3, 126);
+            txtconfirm.Font = new Font("Arial", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtconfirm.Location = new Point(42, 202);
+            txtconfirm.Margin = new Padding(3, 4, 3, 4);
             txtconfirm.Name = "txtconfirm";
-            txtconfirm.PlaceholderText = "Verify";
-            txtconfirm.Size = new Size(246, 29);
+            txtconfirm.PlaceholderText = "Confirm Password:";
+            txtconfirm.Size = new Size(309, 28);
             txtconfirm.TabIndex = 10;
+            txtconfirm.UseSystemPasswordChar = true;
             // 
             // txtnew
             // 
-            txtnew.Font = new Font("Arial", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtnew.Location = new Point(4, 76);
+            txtnew.Font = new Font("Arial", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtnew.Location = new Point(42, 146);
+            txtnew.Margin = new Padding(3, 4, 3, 4);
             txtnew.Name = "txtnew";
-            txtnew.PlaceholderText = "Email:";
-            txtnew.Size = new Size(246, 29);
+            txtnew.PlaceholderText = "New Password:";
+            txtnew.Size = new Size(309, 28);
             txtnew.TabIndex = 8;
+            txtnew.UseSystemPasswordChar = true;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Arial Black", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.Font = new Font("Arial Black", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.Black;
-            label1.Location = new Point(45, 24);
+            label1.Location = new Point(51, 71);
             label1.Name = "label1";
-            label1.Size = new Size(165, 33);
+            label1.Size = new Size(291, 32);
             label1.TabIndex = 7;
-            label1.Text = "PASSWORD";
+            label1.Text = "Create New Password";
             // 
             // ForgotPasswordUC
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.DimGray;
             Controls.Add(pnl_password);
@@ -175,9 +186,10 @@
             Controls.Add(btnCancel);
             Controls.Add(btnSendCode);
             Controls.Add(txtEmail);
-            Controls.Add(lblEnterEmail);
+            Controls.Add(lblForgotPass);
+            Margin = new Padding(3, 4, 3, 4);
             Name = "ForgotPasswordUC";
-            Size = new Size(346, 396);
+            Size = new Size(395, 528);
             pnl_password.ResumeLayout(false);
             pnl_password.PerformLayout();
             ResumeLayout(false);
@@ -186,7 +198,7 @@
 
         #endregion
 
-        private Label lblEnterEmail;
+        private Label lblForgotPass;
         private TextBox txtEmail;
         private Button btnSendCode;
         private Button btnCancel;

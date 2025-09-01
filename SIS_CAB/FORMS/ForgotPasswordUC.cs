@@ -33,7 +33,7 @@ namespace SIS_CAB.FORMS
             try
             {
                 var message = new MimeMessage();
-                message.From.Add(new MailboxAddress("SIS", "ccs.renno04@gmail.com"));
+                message.From.Add(new MailboxAddress("SIS", "nellypial.ccsdump@gmail.com"));
                 message.To.Add(new MailboxAddress("", toEmail));
                 message.Subject = subject;
                 message.Body = new TextPart("plain") { Text = body };
@@ -41,7 +41,7 @@ namespace SIS_CAB.FORMS
                 using (var client = new SmtpClient())
                 {
                     client.Connect("smtp.gmail.com", 587, SecureSocketOptions.StartTls);
-                    client.Authenticate("nellypial.ccsdump@gmail.com", "wyyj vpbh txnl yeun");
+                    client.Authenticate("nellypial.ccsdump@gmail.com", "gsbh pivg ojhh xuau");
                     client.Send(message);
                     client.Disconnect(true);
                 }

@@ -96,6 +96,7 @@
             // Timer
             // 
             Timer.Interval = 1000;
+            Timer.Tick += Timer_Tick_1;
             // 
             // VerificationCodeUC
             // 

@@ -167,5 +167,18 @@ namespace SIS_CAB.FORMS
             this.Parent?.Controls.Remove(this);
             this.Dispose();
         }
+
+        private void Timer_Tick_1(object sender, EventArgs e)
+        {
+            _timeLeftSeconds--;
+            lblCountdown.Text = $"Time left: {FormatTime(_timeLeftSeconds)}";  // Format using _timeLeftSeconds
+
+            if (_timeLeftSeconds <= 0)
+            {
+                _timer.Stop();
+                MessageBox.Show("Verification expired. Please request a new code.");
+                GoToForgotPassword();  // Redirect back to the forgot password screen
+            }
+        }
     }
 }

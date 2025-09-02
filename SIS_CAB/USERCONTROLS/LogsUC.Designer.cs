@@ -54,6 +54,7 @@
             txtSearch.PlaceholderText = "Search:";
             txtSearch.Size = new Size(200, 27);
             txtSearch.TabIndex = 7;
+            txtSearch.TextChanged += txtSearch_TextChanged;
             // 
             // pbSearchLogs
             // 

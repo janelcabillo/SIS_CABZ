@@ -59,23 +59,23 @@ namespace SIS_CAB
                             resetCmd.Parameters.AddWithValue("@id", userId);
                             resetCmd.ExecuteNonQuery();
 
-                            Logger.Log("Login", $"User '{username}' logged in successfully.");
+                            Logger.Log(userId, "Login", $"User {username} logged in");
 
                             // Redirect based on role
                             switch (roleID)
                             {
                                 case 1:
-                                    Admin admin = new Admin(username);
+                                    Admin admin = new Admin(userId, username);
                                     admin.Show();
                                     this.Hide();
                                     break;
                                 case 2:
-                                    Student student = new Student(username);
+                                    Student student = new Student(userId, username);
                                     student.Show();
                                     this.Hide();
                                     break;
                                 case 3:
-                                    Teacher teacher = new Teacher(username);
+                                    Teacher teacher = new Teacher(userId, username);
                                     teacher.Show();
                                     this.Hide();
                                     break;

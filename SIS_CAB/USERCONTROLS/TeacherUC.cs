@@ -13,12 +13,14 @@ namespace SIS_CAB.FORMS
 {
     public partial class TeacherUC : UserControl
     {
-        private string _loggedInUser;
+        private readonly int _loggedInUserId;
+        private readonly string _loggedInUser;
         private bool isUpdateMode = false;
         private int selectedTeacherId = -1;
-        public TeacherUC(string username)
+        public TeacherUC(int userId, string username)
         {
             InitializeComponent();
+            _loggedInUserId = userId;
             _loggedInUser = username;
             LoadTeachers();
         }
@@ -186,7 +188,8 @@ namespace SIS_CAB.FORMS
                     }
 
                     MessageBox.Show("Teacher updated successfully!", "Update", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    Logger.Log("Updated Teacher", $"Teacher {firstName} {lastName} updated by Admin {_loggedInUser}.");
+                    Logger.Log(_loggedInUserId, "Updated Teacher", $"Admin {_loggedInUser} updated teacher {firstName} {lastName}.");
+
 
                 }
                 else
@@ -225,8 +228,7 @@ namespace SIS_CAB.FORMS
 
                         cmdTeacher.ExecuteNonQuery();
                         MessageBox.Show("Teacher added successfully!", "Insert", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        Logger.Log("Added Teacher", $"Admin {_loggedInUser} added teacher {firstName} {lastName}.");
-
+                        Logger.Log(_loggedInUserId, "Added Teacher", $"Admin {_loggedInUser} added teacher {firstName} {lastName}.");
                     }
                 }
 
@@ -318,7 +320,7 @@ namespace SIS_CAB.FORMS
 
                     LoadTeachers();
                     MessageBox.Show($"Teacher {firstName} {lastName} marked as inactive successfully.");
-                    Logger.Log("Deleted Teacher", $"Admin {_loggedInUser} deleted teacher {firstName} {lastName}.");
+                    Logger.Log(_loggedInUserId, "Deleted Teacher", $"Admin {_loggedInUser} deleted teacher {firstName} {lastName}.");
                 }
             }
             else

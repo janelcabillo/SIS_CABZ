@@ -8,50 +8,57 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Data.SqlClient;
+using Microsoft.VisualBasic.ApplicationServices;
 using SIS_CAB.FORMS;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace SIS_CAB.USERCONTROLS
 {
     public partial class StudentUC : UserControl
     {
-        private string _loggedInUser;
+        private readonly int _loggedInUserId;
+        private readonly string _loggedInUser;
         private bool isUpdateMode = false;
         private int selectedStudentId = -1;
-        public StudentUC(string username)
+        public StudentUC(int userId, string username)
         {
             InitializeComponent();
+            _loggedInUserId = userId;
             _loggedInUser = username;
             LoadStudents();
         }
-        private void LoadStudents(string searchText = "")
+        private void LoadStudentsWithSearch(string searchText = "")
         {
             using (SqlConnection conn = new SqlConnection(DatabaseConnection.connectionString))
             {
                 string query = @"
-                    SELECT  student_id, first_name, last_name, date_of_birth, gender,
-                           email, phone, address, enrollment_date, status, user_id
-                    FROM student
-                    WHERE 
-                        student_id LIKE @search OR
-                        first_name LIKE @search OR
-                        last_name LIKE @search OR
-                        CONVERT(NVARCHAR, date_of_birth, 23) LIKE @search OR
-                        gender LIKE @search OR
-                        email LIKE @search OR
-                        phone LIKE @search OR
-                        address LIKE @search OR
-                        CONVERT(NVARCHAR, enrollment_date, 23) LIKE @search OR
-                        status LIKE @search
-                ";
+            SELECT student_id, first_name, last_name, date_of_birth, gender,
+                   email, phone, address, enrollment_date, status, user_id
+            FROM student
+            WHERE 
+                student_id LIKE @search OR
+                first_name LIKE @search OR
+                last_name LIKE @search OR
+                CONVERT(VARCHAR, date_of_birth, 23) LIKE @search OR
+                gender LIKE @search OR
+                email LIKE @search OR
+                phone LIKE @search OR
+                address LIKE @search OR
+                CONVERT(VARCHAR, enrollment_date, 23) LIKE @search OR
+                status LIKE @search
+            ORDER BY student_id DESC
+        ";
 
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
+                    // Add parameter with wildcard for LIKE
                     cmd.Parameters.AddWithValue("@search", "%" + searchText + "%");
+
                     SqlDataAdapter da = new SqlDataAdapter(cmd);
                     DataTable dt = new DataTable();
                     da.Fill(dt);
 
-                    dgvStudent.DataSource = dt; // your DataGridView
+                    dgvStudent.DataSource = dt;
                 }
             }
         }
@@ -92,7 +99,7 @@ namespace SIS_CAB.USERCONTROLS
             lblStatus.Visible = true;
             if (!panelAddStudent.Visible)
             {
-                lblAddStudent.Text = "Add Student";  // 🔹 Title for Add mode
+                lblAddStudent.Text = "Add Student";  // title for add mode
                 panelAddStudent.Visible = true;
                 panelAddStudent.BringToFront();
             }
@@ -119,7 +126,7 @@ namespace SIS_CAB.USERCONTROLS
             if (cmbStatus.SelectedItem == null || string.IsNullOrWhiteSpace(cmbStatus.SelectedItem?.ToString()))
                 errors.Add("Status is required.");
 
-            // If there are any errors, show them all at once
+            // if there are any errors, show them all at once
             if (errors.Count > 0)
             {
                 MessageBox.Show(
@@ -136,7 +143,7 @@ namespace SIS_CAB.USERCONTROLS
 
                 if (isUpdateMode && selectedStudentId > 0)
                 {
-                    // First get the linked user_id from the student table
+                    // first get the linked user_id from the student table
                     int userId = -1;
                     using (SqlCommand cmdGetUserId = new SqlCommand("SELECT user_id FROM student WHERE student_id = @id", connection))
                     {
@@ -148,16 +155,15 @@ namespace SIS_CAB.USERCONTROLS
 
                     // UPDATE student table
                     string updateQuery = @"UPDATE student SET  
-                                            first_name = @first_name,
-                                            last_name = @last_name,
-                                            date_of_birth = @dob,
-                                            gender = @gender,
-                                            email = @email,
-                                            phone = @phone,
-                                            address = @address,
-                                            enrollment_date = @enroll,
-                                            status = @status
-                                           WHERE student_id = @id";
+                        first_name = @first_name,
+                        last_name = @last_name,
+                        date_of_birth = @dob,
+                        gender = @gender,
+                        email = @email,
+                        phone = @phone,
+                        address = @address,
+                        enrollment_date = @enroll
+                       WHERE student_id = @id";
 
                     using (SqlCommand cmd = new SqlCommand(updateQuery, connection))
                     {
@@ -192,8 +198,7 @@ namespace SIS_CAB.USERCONTROLS
                     }
 
                     MessageBox.Show("Student updated successfully!");
-                    Logger.Log("Updated Student", $"Student {firstName} {lastName} updated by Admin {_loggedInUser}.");
-
+                    Logger.Log(_loggedInUserId, "Update Student", $"User {_loggedInUser} updated student {firstName} {lastName}.");
                 }
                 else
                 {
@@ -207,7 +212,7 @@ namespace SIS_CAB.USERCONTROLS
                     {
                         cmdUser.Parameters.AddWithValue("@username", txtFirstName.Text.Trim());
                         cmdUser.Parameters.AddWithValue("@password_hash", txtLastName.Text.Trim());
-                        cmdUser.Parameters.AddWithValue("@role_id", 2); // Student role
+                        cmdUser.Parameters.AddWithValue("@role_id", 3);
 
                         newUserId = (int)cmdUser.ExecuteScalar();
                     }
@@ -232,17 +237,17 @@ namespace SIS_CAB.USERCONTROLS
 
                         cmdStudent.ExecuteNonQuery();
                         MessageBox.Show("Student added successfully!", "Insert", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        Logger.Log("Added Student", $"Admin {_loggedInUser} added student {firstName} {lastName}.");
+                        Logger.Log(_loggedInUserId, "Add Student", $"User {_loggedInUser} added student {firstName} {lastName}.");
                     }
                 }
 
-                // Reset form
+                // this will reset form
                 ClearFields();
                 panelAddStudent.Visible = false;
                 isUpdateMode = false;
                 selectedStudentId = -1;
 
-                // Reload the data
+                // reload the data
                 LoadStudents();
             }
         }
@@ -269,10 +274,10 @@ namespace SIS_CAB.USERCONTROLS
 
             if (dgvStudent.SelectedRows.Count > 0)
             {
-                // 1. Get selected student's ID
+                // get selected student's ID
                 selectedStudentId = Convert.ToInt32(dgvStudent.SelectedRows[0].Cells["student_id"].Value);
 
-                // 2. Load data into form fields
+                // load data into form fields
                 txtFirstName.Text = dgvStudent.SelectedRows[0].Cells["first_name"].Value.ToString();
                 txtLastName.Text = dgvStudent.SelectedRows[0].Cells["last_name"].Value.ToString();
                 dtpDOB.Value = Convert.ToDateTime(dgvStudent.SelectedRows[0].Cells["date_of_birth"].Value);
@@ -283,13 +288,13 @@ namespace SIS_CAB.USERCONTROLS
                 dtpEnrollDate.Value = Convert.ToDateTime(dgvStudent.SelectedRows[0].Cells["enrollment_date"].Value);
                 cmbStatus.SelectedItem = dgvStudent.SelectedRows[0].Cells["status"].Value.ToString();
 
-                // 3. Enable update mode
+                // this enable update mode
                 isUpdateMode = true;
 
-                // 🔹 Change label text to "Update Student"
+                // change label text to "Update Student"
                 lblAddStudent.Text = "Update Student";
 
-                // 4. Show the panel
+                // shows the panel
                 panelAddStudent.Visible = true;
                 panelAddStudent.BringToFront();
             }
@@ -326,7 +331,7 @@ namespace SIS_CAB.USERCONTROLS
 
                     LoadStudents();
                     MessageBox.Show($"Student {firstName} {lastName} marked as inactive successfully.");
-                    Logger.Log("Deleted Student", $"Admin {_loggedInUser} deleted student {firstName} {lastName}.");
+                    Logger.Log(_loggedInUserId, "Deactivate Student", $"User {_loggedInUser} deactivated student {firstName} {lastName}.");
                 }
             }
             else
@@ -337,7 +342,7 @@ namespace SIS_CAB.USERCONTROLS
 
         private void txtSearch_TextChanged(object sender, EventArgs e)
         {
-            LoadStudents(txtSearch.Text.Trim());
+            LoadStudentsWithSearch(txtSearch.Text.Trim());
         }
     }
 }

@@ -28,8 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LogsUC));
             dgvLogs = new DataGridView();
+            txtSearch = new TextBox();
+            pbSearchLogs = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)dgvLogs).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pbSearchLogs).BeginInit();
             SuspendLayout();
             // 
             // dgvLogs
@@ -37,27 +41,51 @@
             dgvLogs.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvLogs.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dgvLogs.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvLogs.Location = new Point(3, 3);
+            dgvLogs.Location = new Point(3, 44);
             dgvLogs.Name = "dgvLogs";
             dgvLogs.RowHeadersWidth = 51;
-            dgvLogs.Size = new Size(722, 472);
+            dgvLogs.Size = new Size(722, 431);
             dgvLogs.TabIndex = 0;
+            // 
+            // txtSearch
+            // 
+            txtSearch.Location = new Point(59, 11);
+            txtSearch.Name = "txtSearch";
+            txtSearch.PlaceholderText = "Search:";
+            txtSearch.Size = new Size(200, 27);
+            txtSearch.TabIndex = 7;
+            // 
+            // pbSearchLogs
+            // 
+            pbSearchLogs.Image = (Image)resources.GetObject("pbSearchLogs.Image");
+            pbSearchLogs.Location = new Point(26, 11);
+            pbSearchLogs.Name = "pbSearchLogs";
+            pbSearchLogs.Size = new Size(27, 27);
+            pbSearchLogs.SizeMode = PictureBoxSizeMode.Zoom;
+            pbSearchLogs.TabIndex = 8;
+            pbSearchLogs.TabStop = false;
             // 
             // LogsUC
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Silver;
+            Controls.Add(pbSearchLogs);
+            Controls.Add(txtSearch);
             Controls.Add(dgvLogs);
             Name = "LogsUC";
             Size = new Size(728, 478);
             Load += LogsUC_Load;
             ((System.ComponentModel.ISupportInitialize)dgvLogs).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pbSearchLogs).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
 
         private DataGridView dgvLogs;
+        private TextBox txtSearch;
+        private PictureBox pbSearchLogs;
     }
 }

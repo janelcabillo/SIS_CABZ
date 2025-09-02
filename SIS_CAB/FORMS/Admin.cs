@@ -18,24 +18,26 @@ namespace SIS_CAB.FORMS
 {
     public partial class Admin : Form
     {
-        private string _loggedInUser;
+        private readonly int _loggedInUserId;
+        private readonly string _loggedInUser;
         private string userAdmin;
 
         private StudentUC studentUC;
         private TeacherUC teacherUC;
         private DashboardUC dashboardUC;
         private LogsUC logsUC;
-        public Admin(string username)
+        public Admin(int userId, string username)
         {
             InitializeComponent();
+            _loggedInUserId = userId;
             _loggedInUser = username;
             this.userAdmin = username;
 
-            StudentUC studentUC = new StudentUC(_loggedInUser);
+            StudentUC studentUC = new StudentUC(_loggedInUserId, _loggedInUser);
             studentUC.Visible = false;
             this.Controls.Add(studentUC);
 
-            TeacherUC teacherUC = new TeacherUC(_loggedInUser);
+            TeacherUC teacherUC = new TeacherUC(_loggedInUserId, _loggedInUser);
             teacherUC.Visible = false;
             this.Controls.Add(teacherUC);
         }
@@ -55,7 +57,7 @@ namespace SIS_CAB.FORMS
 
         private void btnStudent_Click(object sender, EventArgs e)
         {
-            StudentUC studentUC = new StudentUC(_loggedInUser);
+            StudentUC studentUC = new StudentUC(_loggedInUserId, _loggedInUser);
             studentUC.Dock = DockStyle.Fill;
             studentUC.Margin = new Padding(0);
             studentUC.Padding = new Padding(0);
@@ -66,7 +68,7 @@ namespace SIS_CAB.FORMS
 
         private void btnTeacher_Click(object sender, EventArgs e)
         {
-            TeacherUC teacherUC = new TeacherUC(_loggedInUser);
+            TeacherUC teacherUC = new TeacherUC(_loggedInUserId, _loggedInUser);
             teacherUC.Dock = DockStyle.Fill;
             teacherUC.Margin = new Padding(0);
             teacherUC.Padding = new Padding(0);
@@ -86,7 +88,7 @@ namespace SIS_CAB.FORMS
 
             if (result == DialogResult.Yes)
             {
-                Logger.Log("Logout", $"User {_loggedInUser} logged out");
+                Logger.Log(_loggedInUserId, "Logout", $"User {_loggedInUser} logged out.");
 
                 LoginForm loginForm = new LoginForm();
                 loginForm.Show();

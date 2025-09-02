@@ -204,7 +204,7 @@ namespace SIS_CAB.FORMS
                     {
                         cmdUser.Parameters.AddWithValue("@username", txtFirstName.Text.Trim());
                         cmdUser.Parameters.AddWithValue("@password_hash", txtLastName.Text.Trim());
-                        cmdUser.Parameters.AddWithValue("@role_id", 3); // Teacher role
+                        cmdUser.Parameters.AddWithValue("@role_id", 2); // Teacher role
 
                         newUserId = (int)cmdUser.ExecuteScalar();
                     }

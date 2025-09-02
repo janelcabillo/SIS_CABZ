@@ -32,27 +32,31 @@ namespace SIS_CAB.USERCONTROLS
             using (SqlConnection conn = new SqlConnection(DatabaseConnection.connectionString))
             {
                 string query = @"
-            SELECT student_id, first_name, last_name, date_of_birth, gender,
-                   email, phone, address, enrollment_date, status, user_id
-            FROM student
-            WHERE 
-                student_id LIKE @search OR
-                first_name LIKE @search OR
-                last_name LIKE @search OR
-                CONVERT(VARCHAR, date_of_birth, 23) LIKE @search OR
-                gender LIKE @search OR
-                email LIKE @search OR
-                phone LIKE @search OR
-                address LIKE @search OR
-                CONVERT(VARCHAR, enrollment_date, 23) LIKE @search OR
-                status LIKE @search
-            ORDER BY student_id DESC
-        ";
+                                SELECT student_id, first_name, last_name, date_of_birth, gender,
+                                       email, phone, address, enrollment_date, status, user_id
+                                FROM student
+                                WHERE 
+                                    student_id LIKE @search OR
+                                    first_name LIKE @search OR
+                                    last_name LIKE @search OR
+                                    CONVERT(VARCHAR, date_of_birth, 23) LIKE @search OR
+                                    gender = @genderSearch OR
+                                    email LIKE @search OR
+                                    phone LIKE @search OR
+                                    address LIKE @search OR
+                                    CONVERT(VARCHAR, enrollment_date, 23) LIKE @search OR
+                                    status LIKE @search
+                                ORDER BY student_id DESC";
 
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
+                    string genderSearch = (searchText.Equals("male", StringComparison.OrdinalIgnoreCase) ||
+                       searchText.Equals("female", StringComparison.OrdinalIgnoreCase))
+                      ? searchText
+                      : "";
                     // Add parameter with wildcard for LIKE
                     cmd.Parameters.AddWithValue("@search", "%" + searchText + "%");
+                    cmd.Parameters.AddWithValue("@genderSearch", genderSearch);
 
                     SqlDataAdapter da = new SqlDataAdapter(cmd);
                     DataTable dt = new DataTable();
@@ -155,15 +159,15 @@ namespace SIS_CAB.USERCONTROLS
 
                     // UPDATE student table
                     string updateQuery = @"UPDATE student SET  
-                        first_name = @first_name,
-                        last_name = @last_name,
-                        date_of_birth = @dob,
-                        gender = @gender,
-                        email = @email,
-                        phone = @phone,
-                        address = @address,
-                        enrollment_date = @enroll
-                       WHERE student_id = @id";
+                                        first_name = @first_name,
+                                        last_name = @last_name,
+                                        date_of_birth = @dob,
+                                        gender = @gender,
+                                        email = @email,
+                                        phone = @phone,
+                                        address = @address,
+                                        enrollment_date = @enroll
+                                       WHERE student_id = @id";
 
                     using (SqlCommand cmd = new SqlCommand(updateQuery, connection))
                     {

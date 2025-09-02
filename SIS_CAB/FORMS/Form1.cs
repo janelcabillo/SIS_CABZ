@@ -14,8 +14,20 @@ namespace SIS_CAB
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            string username = txtUsername.Text;
-            string password = txtPassword.Text;
+            string username = txtUsername.Text.Trim();
+            string password = txtPassword.Text.Trim();
+
+            // ?? Validate inputs first
+            List<string> missingFields = new List<string>();
+            if (string.IsNullOrEmpty(username)) missingFields.Add("Username");
+            if (string.IsNullOrEmpty(password)) missingFields.Add("Password");
+
+            if (missingFields.Count > 0)
+            {
+                string message = "Please enter the following required fields:\n- " + string.Join("\n- ", missingFields);
+                MessageBox.Show(message);
+                return;
+            }
 
             using (SqlConnection connection = new SqlConnection(DatabaseConnection.connectionString))
             {
@@ -25,7 +37,7 @@ namespace SIS_CAB
 
                     // Get user info including failed attempts and lockout status
                     string query = @"SELECT user_id, role_id, password_hash, failed_attempts, lockout_until 
-                 FROM user_login WHERE username = @username";
+                         FROM user_login WHERE username = @username";
 
                     SqlCommand cmd = new SqlCommand(query, connection);
                     cmd.Parameters.AddWithValue("@username", username);
@@ -44,14 +56,15 @@ namespace SIS_CAB
 
                         reader.Close();
 
-                        // Check lockout
+                        // Check if account is locked
                         if (lockoutUntil.HasValue && lockoutUntil > DateTime.Now)
                         {
                             MessageBox.Show($"Account locked. Try again at {lockoutUntil}");
                             return;
                         }
 
-                        if (dbPassword == password) // ? Correct password
+                        // Check password
+                        if (dbPassword == password)
                         {
                             // Reset failed attempts
                             string resetQuery = "UPDATE user_login SET failed_attempts = 0, lockout_until = NULL WHERE user_id = @id";
@@ -70,13 +83,13 @@ namespace SIS_CAB
                                     this.Hide();
                                     break;
                                 case 2:
-                                    Student student = new Student(userId, username);
-                                    student.Show();
+                                    Teacher teacher = new Teacher(userId, username);
+                                    teacher.Show();
                                     this.Hide();
                                     break;
                                 case 3:
-                                    Teacher teacher = new Teacher(userId, username);
-                                    teacher.Show();
+                                    Student student = new Student(userId, username);
+                                    student.Show();
                                     this.Hide();
                                     break;
                                 default:
@@ -84,13 +97,12 @@ namespace SIS_CAB
                                     break;
                             }
                         }
-                        else // ? Wrong password
+                        else
                         {
+                            // Wrong password handling
                             failedAttempts++;
-
                             if (failedAttempts >= 3)
                             {
-                                // Lock user for 24 hours
                                 DateTime lockoutTime = DateTime.Now.AddHours(24);
                                 string lockQuery = "UPDATE user_login SET failed_attempts = @fa, lockout_until = @lu WHERE user_id = @id";
                                 SqlCommand lockCmd = new SqlCommand(lockQuery, connection);
@@ -103,7 +115,6 @@ namespace SIS_CAB
                             }
                             else
                             {
-                                // Just update attempts
                                 string updateQuery = "UPDATE user_login SET failed_attempts = @fa WHERE user_id = @id";
                                 SqlCommand updateCmd = new SqlCommand(updateQuery, connection);
                                 updateCmd.Parameters.AddWithValue("@fa", failedAttempts);

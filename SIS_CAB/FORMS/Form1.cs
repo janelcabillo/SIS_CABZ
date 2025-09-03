@@ -103,7 +103,7 @@ namespace SIS_CAB
                             failedAttempts++;
                             if (failedAttempts >= 3)
                             {
-                                DateTime lockoutTime = DateTime.Now.AddHours(24);
+                                DateTime lockoutTime = DateTime.Now.AddMinutes(1);
                                 string lockQuery = "UPDATE user_login SET failed_attempts = @fa, lockout_until = @lu WHERE user_id = @id";
                                 SqlCommand lockCmd = new SqlCommand(lockQuery, connection);
                                 lockCmd.Parameters.AddWithValue("@fa", failedAttempts);
@@ -111,7 +111,7 @@ namespace SIS_CAB
                                 lockCmd.Parameters.AddWithValue("@id", userId);
                                 lockCmd.ExecuteNonQuery();
 
-                                MessageBox.Show("Too many failed attempts. Account locked for 24 hours.");
+                                MessageBox.Show("Too many failed attempts. Account locked for 1 mins.");
                             }
                             else
                             {

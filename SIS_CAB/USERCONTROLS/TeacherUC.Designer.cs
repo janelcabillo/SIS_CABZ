@@ -57,10 +57,11 @@
             // dgvTeacher
             // 
             dgvTeacher.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvTeacher.Location = new Point(3, 44);
+            dgvTeacher.Location = new Point(3, 33);
+            dgvTeacher.Margin = new Padding(3, 2, 3, 2);
             dgvTeacher.Name = "dgvTeacher";
             dgvTeacher.RowHeadersWidth = 51;
-            dgvTeacher.Size = new Size(722, 362);
+            dgvTeacher.Size = new Size(632, 272);
             dgvTeacher.TabIndex = 1;
             // 
             // btnAddNew
@@ -69,9 +70,10 @@
             btnAddNew.FlatStyle = FlatStyle.Popup;
             btnAddNew.Font = new Font("Arial", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnAddNew.ForeColor = Color.Black;
-            btnAddNew.Location = new Point(26, 423);
+            btnAddNew.Location = new Point(23, 317);
+            btnAddNew.Margin = new Padding(3, 2, 3, 2);
             btnAddNew.Name = "btnAddNew";
-            btnAddNew.Size = new Size(128, 37);
+            btnAddNew.Size = new Size(92, 28);
             btnAddNew.TabIndex = 2;
             btnAddNew.Text = "Add New";
             btnAddNew.UseVisualStyleBackColor = false;
@@ -83,9 +85,10 @@
             btnUpdate.FlatStyle = FlatStyle.Popup;
             btnUpdate.Font = new Font("Arial", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnUpdate.ForeColor = Color.Black;
-            btnUpdate.Location = new Point(306, 423);
+            btnUpdate.Location = new Point(137, 317);
+            btnUpdate.Margin = new Padding(3, 2, 3, 2);
             btnUpdate.Name = "btnUpdate";
-            btnUpdate.Size = new Size(128, 37);
+            btnUpdate.Size = new Size(92, 28);
             btnUpdate.TabIndex = 3;
             btnUpdate.Text = "Update";
             btnUpdate.UseVisualStyleBackColor = false;
@@ -97,9 +100,10 @@
             btnDelete.FlatStyle = FlatStyle.Popup;
             btnDelete.Font = new Font("Arial", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnDelete.ForeColor = Color.Black;
-            btnDelete.Location = new Point(572, 423);
+            btnDelete.Location = new Point(249, 317);
+            btnDelete.Margin = new Padding(3, 2, 3, 2);
             btnDelete.Name = "btnDelete";
-            btnDelete.Size = new Size(128, 37);
+            btnDelete.Size = new Size(92, 28);
             btnDelete.TabIndex = 4;
             btnDelete.Text = "Delete";
             btnDelete.UseVisualStyleBackColor = false;
@@ -122,19 +126,21 @@
             panelAddTeacher.Controls.Add(txtLastName);
             panelAddTeacher.Controls.Add(lblAddTeacher);
             panelAddTeacher.Controls.Add(txtFirstName);
-            panelAddTeacher.Location = new Point(338, 0);
+            panelAddTeacher.Location = new Point(296, 0);
+            panelAddTeacher.Margin = new Padding(3, 2, 3, 2);
             panelAddTeacher.Name = "panelAddTeacher";
-            panelAddTeacher.Size = new Size(390, 475);
+            panelAddTeacher.Size = new Size(342, 357);
             panelAddTeacher.TabIndex = 5;
             panelAddTeacher.Visible = false;
             // 
             // txtSpecialization
             // 
             txtSpecialization.Font = new Font("Arial", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtSpecialization.Location = new Point(211, 245);
+            txtSpecialization.Location = new Point(185, 184);
+            txtSpecialization.Margin = new Padding(3, 2, 3, 2);
             txtSpecialization.Name = "txtSpecialization";
             txtSpecialization.PlaceholderText = "Specialization:";
-            txtSpecialization.Size = new Size(149, 25);
+            txtSpecialization.Size = new Size(131, 21);
             txtSpecialization.TabIndex = 16;
             // 
             // btnCancel
@@ -142,9 +148,10 @@
             btnCancel.BackColor = Color.LightGray;
             btnCancel.FlatStyle = FlatStyle.Popup;
             btnCancel.Font = new Font("Arial", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnCancel.Location = new Point(223, 390);
+            btnCancel.Location = new Point(195, 292);
+            btnCancel.Margin = new Padding(3, 2, 3, 2);
             btnCancel.Name = "btnCancel";
-            btnCancel.Size = new Size(137, 57);
+            btnCancel.Size = new Size(120, 43);
             btnCancel.TabIndex = 15;
             btnCancel.Text = "Cancel";
             btnCancel.UseVisualStyleBackColor = false;
@@ -155,9 +162,10 @@
             btnSave.BackColor = Color.RoyalBlue;
             btnSave.FlatStyle = FlatStyle.Popup;
             btnSave.Font = new Font("Arial", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnSave.Location = new Point(31, 390);
+            btnSave.Location = new Point(27, 292);
+            btnSave.Margin = new Padding(3, 2, 3, 2);
             btnSave.Name = "btnSave";
-            btnSave.Size = new Size(137, 57);
+            btnSave.Size = new Size(120, 43);
             btnSave.TabIndex = 14;
             btnSave.Text = "Save";
             btnSave.UseVisualStyleBackColor = false;
@@ -169,73 +177,79 @@
             cmbStatus.Font = new Font("Arial", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             cmbStatus.FormattingEnabled = true;
             cmbStatus.Items.AddRange(new object[] { "Active", "Inactive" });
-            cmbStatus.Location = new Point(91, 298);
+            cmbStatus.Location = new Point(80, 224);
+            cmbStatus.Margin = new Padding(3, 2, 3, 2);
             cmbStatus.Name = "cmbStatus";
-            cmbStatus.Size = new Size(269, 25);
+            cmbStatus.Size = new Size(236, 23);
             cmbStatus.TabIndex = 13;
             // 
             // lblStatus
             // 
             lblStatus.AutoSize = true;
             lblStatus.Font = new Font("Arial", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblStatus.Location = new Point(31, 301);
+            lblStatus.Location = new Point(27, 226);
             lblStatus.Name = "lblStatus";
-            lblStatus.Size = new Size(54, 17);
+            lblStatus.Size = new Size(45, 15);
             lblStatus.TabIndex = 12;
             lblStatus.Text = "Status:";
             // 
             // dtpHireDate
             // 
             dtpHireDate.Font = new Font("Arial", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dtpHireDate.Location = new Point(106, 190);
+            dtpHireDate.Location = new Point(93, 142);
+            dtpHireDate.Margin = new Padding(3, 2, 3, 2);
             dtpHireDate.Name = "dtpHireDate";
-            dtpHireDate.Size = new Size(254, 25);
+            dtpHireDate.Size = new Size(223, 21);
             dtpHireDate.TabIndex = 11;
             // 
             // lblHireDate
             // 
             lblHireDate.AutoSize = true;
             lblHireDate.Font = new Font("Arial", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblHireDate.Location = new Point(31, 196);
+            lblHireDate.Location = new Point(27, 147);
             lblHireDate.Name = "lblHireDate";
-            lblHireDate.Size = new Size(69, 17);
+            lblHireDate.Size = new Size(59, 15);
             lblHireDate.TabIndex = 10;
             lblHireDate.Text = "HireDate:";
             // 
             // txtDepartment
             // 
             txtDepartment.Font = new Font("Arial", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtDepartment.Location = new Point(31, 245);
+            txtDepartment.Location = new Point(27, 184);
+            txtDepartment.Margin = new Padding(3, 2, 3, 2);
             txtDepartment.Name = "txtDepartment";
             txtDepartment.PlaceholderText = "Department:";
-            txtDepartment.Size = new Size(149, 25);
+            txtDepartment.Size = new Size(131, 21);
             txtDepartment.TabIndex = 9;
             // 
             // txtPhone
             // 
             txtPhone.Font = new Font("Arial", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtPhone.Location = new Point(211, 139);
+            txtPhone.Location = new Point(185, 104);
+            txtPhone.Margin = new Padding(3, 2, 3, 2);
             txtPhone.Name = "txtPhone";
             txtPhone.PlaceholderText = "Phone:";
-            txtPhone.Size = new Size(149, 25);
+            txtPhone.Size = new Size(131, 21);
             txtPhone.TabIndex = 4;
             // 
             // txtEmail
             // 
             txtEmail.Font = new Font("Arial", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtEmail.Location = new Point(31, 139);
+            txtEmail.Location = new Point(27, 104);
+            txtEmail.Margin = new Padding(3, 2, 3, 2);
             txtEmail.Name = "txtEmail";
             txtEmail.PlaceholderText = "Email:";
-            txtEmail.Size = new Size(149, 25);
+            txtEmail.Size = new Size(131, 21);
             txtEmail.TabIndex = 3;
             // 
             // txtLastName
             // 
             txtLastName.Font = new Font("Arial", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtLastName.Location = new Point(211, 91);
+            txtLastName.Location = new Point(185, 68);
+            txtLastName.Margin = new Padding(3, 2, 3, 2);
             txtLastName.Name = "txtLastName";
             txtLastName.PlaceholderText = "LastName:";
-            txtLastName.Size = new Size(149, 25);
+            txtLastName.Size = new Size(131, 21);
             txtLastName.TabIndex = 2;
             // 
             // lblAddTeacher
@@ -244,7 +258,7 @@
             lblAddTeacher.Font = new Font("Arial", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblAddTeacher.Location = new Point(0, 0);
             lblAddTeacher.Name = "lblAddTeacher";
-            lblAddTeacher.Size = new Size(386, 37);
+            lblAddTeacher.Size = new Size(338, 28);
             lblAddTeacher.TabIndex = 1;
             lblAddTeacher.Text = "Add Teacher";
             lblAddTeacher.TextAlign = ContentAlignment.MiddleCenter;
@@ -252,34 +266,37 @@
             // txtFirstName
             // 
             txtFirstName.Font = new Font("Arial", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtFirstName.Location = new Point(31, 91);
+            txtFirstName.Location = new Point(27, 68);
+            txtFirstName.Margin = new Padding(3, 2, 3, 2);
             txtFirstName.Name = "txtFirstName";
             txtFirstName.PlaceholderText = "FirstName:";
-            txtFirstName.Size = new Size(149, 25);
+            txtFirstName.Size = new Size(131, 21);
             txtFirstName.TabIndex = 0;
             // 
             // txtSearch
             // 
-            txtSearch.Location = new Point(59, 11);
+            txtSearch.Location = new Point(53, 5);
+            txtSearch.Margin = new Padding(3, 2, 3, 2);
             txtSearch.Name = "txtSearch";
             txtSearch.PlaceholderText = "Search:";
-            txtSearch.Size = new Size(200, 27);
+            txtSearch.Size = new Size(176, 23);
             txtSearch.TabIndex = 6;
             txtSearch.TextChanged += txtSearch_TextChanged;
             // 
             // pbSearchTeacher
             // 
             pbSearchTeacher.Image = (Image)resources.GetObject("pbSearchTeacher.Image");
-            pbSearchTeacher.Location = new Point(26, 11);
+            pbSearchTeacher.Location = new Point(24, 5);
+            pbSearchTeacher.Margin = new Padding(3, 2, 3, 2);
             pbSearchTeacher.Name = "pbSearchTeacher";
-            pbSearchTeacher.Size = new Size(27, 27);
+            pbSearchTeacher.Size = new Size(23, 23);
             pbSearchTeacher.SizeMode = PictureBoxSizeMode.Zoom;
             pbSearchTeacher.TabIndex = 7;
             pbSearchTeacher.TabStop = false;
             // 
             // TeacherUC
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Silver;
             Controls.Add(pbSearchTeacher);
@@ -289,8 +306,9 @@
             Controls.Add(btnUpdate);
             Controls.Add(btnAddNew);
             Controls.Add(dgvTeacher);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "TeacherUC";
-            Size = new Size(728, 478);
+            Size = new Size(637, 358);
             Load += TeacherUC_Load;
             ((System.ComponentModel.ISupportInitialize)dgvTeacher).EndInit();
             panelAddTeacher.ResumeLayout(false);
